@@ -64,7 +64,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       title: 'react-admin',
-      favicon: './favicon.ico'
+      favicon: './src/favicon.ico'
     }),
     new ExtractTextPlugin('style/index.css'),
     new webpack.optimize.CommonsChunkPlugin({
