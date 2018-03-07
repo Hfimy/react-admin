@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].js',
@@ -18,6 +18,12 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     open: true
+  },
+  resolve: {
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss'],
+    alias: {
+      page: path.resolve(__dirname, 'src/container')
+    }
   },
   module: {
     rules: [
@@ -66,7 +72,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      title: 'react-admin'
+      title: 'react-admin',
+      favicon: './favicon.ico'
     }),
     new ExtractTextPlugin('style/index.css'),
     new webpack.optimize.CommonsChunkPlugin({
