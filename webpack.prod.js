@@ -5,11 +5,17 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].js',
     publicPath: '/'
+  },
+  resolve: {
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss'],
+    alias: {
+      page: path.resolve(__dirname, 'src/container')
+    }
   },
   module: {
     rules: [
