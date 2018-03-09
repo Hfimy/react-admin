@@ -12,10 +12,10 @@ module.exports = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.js', '.json', '.jsx', '.css', '.scss'],
-    alias: {
-      page: path.resolve(__dirname, 'src/container')
-    }
+    extensions: ['.js', '.json', '.jsx', '.css', '.less']
+    // alias: {
+    //   page: path.resolve(__dirname, 'src/container')
+    // }
   },
   module: {
     rules: [
@@ -27,10 +27,10 @@ module.exports = {
         }
       },
       {
-        test: /\.(css|scss)$/,
+        test: /\.(css|less)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
+          use: ['css-loader', 'less-loader']
         })
       },
       {

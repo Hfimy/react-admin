@@ -1,4 +1,11 @@
 {
-  "presets": ["env", "react"],
-  "plugins": ["react-html-attrs", "react-hot-loader/babel"]
+  "presets": ["env", "react", "stage-1"],
+  "plugins": [
+    "react-html-attrs",
+    "react-hot-loader/babel",
+    [
+      "import",
+      { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }
+    ]
+  ]
 }

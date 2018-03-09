@@ -12,18 +12,18 @@ module.exports = {
     publicPath: '/'
   },
   devServer: {
-    port: 12345,
+    port: 8088,
     contentBase: path.resolve(__dirname, 'dist'),
     compress: true,
     historyApiFallback: true,
-    hot: true,
-    open: true
+    hot: true
+    // open: true
   },
   resolve: {
-    extensions: ['.js', '.json', '.jsx', '.css', '.scss'],
-    alias: {
-      page: path.resolve(__dirname, 'src/container')
-    }
+    extensions: ['.js', '.json', '.jsx', '.css', '.less']
+    // alias: {
+    //   page: path.resolve(__dirname, 'src/container')
+    // }
   },
   module: {
     rules: [
@@ -35,10 +35,10 @@ module.exports = {
         }
       },
       {
-        test: /\.(css|scss)$/,
+        test: /\.(css|less)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
+          use: ['css-loader', 'less-loader']
         })
       },
       {
