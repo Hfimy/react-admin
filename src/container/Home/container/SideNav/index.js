@@ -1,30 +1,40 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
+import data from './data';
 import './style.less';
 
 const SubMenu = Menu.SubMenu;
 
+@withRouter
 export default class SideNav extends React.Component {
   state = {
-    selectedKeys: ['1']
+    selectedKeys: ['1'],
+    defaultOpenKeys: []
   };
+  componentWillMount() {
+    const { routeData, subMenuData } = data;
+    const selectedKey = routeData.get(this.props.location.pathname);
+    const openKey = subMenuData.has(selectedKey)
+      ? subMenuData.get(selectedKey)
+      : undefined;
+    this.setState({ selectedKeys: [selectedKey], defaultOpenKeys: [openKey] });
+  }
   handleSelect = e => {
     this.setState({ selectedKeys: [e.key] });
   };
   render() {
-    const { selectedKeys } = this.state;
+    const { selectedKeys, defaultOpenKeys } = this.state;
     return (
       <nav class="side-nav">
         <h2>
           <Link to="/" onClick={() => this.handleSelect({ key: '1' })}>
-            <img src={require('../../../../public/image/logo.svg')} />React
-            Admin
+            <img src={require('public/image/logo.svg')} />React Admin
           </Link>
         </h2>
         <Menu
           selectedKeys={selectedKeys}
-          defaultOpenKeys={[]}
+          defaultOpenKeys={defaultOpenKeys}
           mode="inline"
           theme="dark"
           inlineCollapsed={false}

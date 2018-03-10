@@ -2,7 +2,7 @@
 
 @font-face {
   font-family: 'anticon';
-  src: url('./public/font/font_zck90zmlh7hf47vi.woff') format('woff');
+  src: url('public/font/font_zck90zmlh7hf47vi.woff') format('woff');
 }
 
 * {

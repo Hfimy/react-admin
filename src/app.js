@@ -1,6 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import Login from 'container/Login';
 import Home from 'container/Home';
@@ -11,7 +11,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route path="/login" component={Login} />
-          <Route path="/" exact component={Home} />
+          <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>
     );
