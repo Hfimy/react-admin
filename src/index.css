@@ -1,11 +1,11 @@
 /* @import '../node_modules/font-awesome/css/font-awesome.min.css'; */
 
 @font-face {
-    font-family: 'anticon';
-    src: url('./public/font/font_zck90zmlh7hf47vi.woff') format('woff');
+  font-family: 'anticon';
+  src: url('./public/font/font_zck90zmlh7hf47vi.woff') format('woff');
 }
 
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }

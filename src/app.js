@@ -1,14 +1,18 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Home from './container/Home';
+import Login from 'container/Login';
+import Home from 'container/Home';
 
 class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <Home />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/" exact component={Home} />
+        </Switch>
       </BrowserRouter>
     );
   }

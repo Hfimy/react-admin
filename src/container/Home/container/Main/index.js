@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Detail from '../Detail';
-import Commodity from '../../../Commodity';
-import Category from '../../../Category';
-import UserList from '../../../UserList';
-import OrderList from '../../../OrderList';
+import Commodity from 'container/Commodity';
+import Category from 'container/Category';
+import UserList from 'container/UserList';
+import OrderList from 'container/OrderList';
 export default class Main extends React.Component {
   render() {
     return (

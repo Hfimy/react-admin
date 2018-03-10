@@ -12,10 +12,10 @@ module.exports = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.js', '.json', '.jsx', '.css', '.less']
-    // alias: {
-    //   page: path.resolve(__dirname, 'src/container')
-    // }
+    extensions: ['.js', '.json', '.jsx', '.css', '.less'],
+    alias: {
+      container: path.resolve(__dirname, 'src/container')
+    }
   },
   module: {
     rules: [
