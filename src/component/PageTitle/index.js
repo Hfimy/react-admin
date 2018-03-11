@@ -10,7 +10,7 @@ export default class PageTitle extends React.Component {
   render() {
     return (
       <Row class="page-title">
-        <h2>{this.props.title}</h2>
+        <h3>{this.props.title}</h3>
       </Row>
     );
   }
