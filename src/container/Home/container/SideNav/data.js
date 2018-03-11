@@ -11,7 +11,8 @@ const subMenuData = new Map([
   ['2', 'sub1'],
   ['3', 'sub1'],
   ['4', 'sub2'],
-  ['5', 'sub3']
+  ['5', 'sub3'],
+  ['6', 'sub4']
 ]);
 
 export default {

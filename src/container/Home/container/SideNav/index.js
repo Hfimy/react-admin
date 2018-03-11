@@ -12,9 +12,10 @@ export default class SideNav extends React.Component {
     selectedKeys: ['1'],
     defaultOpenKeys: []
   };
-  componentDidMount() {
+  componentWillMount() {
     const { routeData, subMenuData } = data;
     const selectedKey = routeData.get(this.props.location.pathname);
+    //如在componentDidMount中设置defaultOpenKeys无效
     const openKey = subMenuData.has(selectedKey)
       ? subMenuData.get(selectedKey)
       : undefined;
@@ -22,12 +23,12 @@ export default class SideNav extends React.Component {
   }
   //主要针对重定向404页面侧边导航的更新
   componentWillReceiveProps(nextProps) {
-    const { routeData, subMenuData } = data;
+    //defaultOpenKeys仅在组件第一次挂载时才有效，后续更新该值无效
+    const { routeData } = data;
     const selectedKey = routeData.get(nextProps.location.pathname);
-    const openKey = subMenuData.has(selectedKey)
-      ? subMenuData.get(selectedKey)
-      : undefined;
-    this.setState({ selectedKeys: [selectedKey], defaultOpenKeys: [openKey] });
+    this.setState({
+      selectedKeys: [selectedKey]
+    });
   }
   handleSelect = e => {
     this.setState({ selectedKeys: [e.key] });
@@ -60,7 +61,7 @@ export default class SideNav extends React.Component {
             title={
               <span>
                 <Icon type="shop" />
-                <span>商品</span>
+                <span>商品页</span>
               </span>
             }
           >
@@ -76,7 +77,7 @@ export default class SideNav extends React.Component {
             title={
               <span>
                 <Icon type="user" />
-                <span>用户</span>
+                <span>用户页</span>
               </span>
             }
           >
@@ -89,7 +90,7 @@ export default class SideNav extends React.Component {
             title={
               <span>
                 <Icon type="file" />
-                <span>订单</span>
+                <span>订单页</span>
               </span>
             }
           >
@@ -97,12 +98,19 @@ export default class SideNav extends React.Component {
               <NavLink to="/orderlist">订单管理</NavLink>
             </Menu.Item>
           </SubMenu>
-          <Menu.Item key="6">
-            <NavLink to="/404">
-              <Icon type="warning" />
-              <span>404</span>
-            </NavLink>
-          </Menu.Item>
+          <SubMenu
+            key="sub4"
+            title={
+              <span>
+                <Icon type="warning" />
+                <span>异常页</span>
+              </span>
+            }
+          >
+            <Menu.Item key="6">
+              <NavLink to="/404">404</NavLink>
+            </Menu.Item>
+          </SubMenu>
         </Menu>
       </nav>
     );

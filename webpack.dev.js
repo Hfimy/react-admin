@@ -22,6 +22,10 @@ module.exports = {
       '/manage': {
         target: 'http://admintest.happymmall.com',
         changeOrigin: true
+      },
+      '/user/logout.do': {
+        target: 'http://admintest.happymmall.com',
+        changeOrigin: true
       }
       // '/manage': 'http://admintest.happymmall.com'//此种写法报错？
     }
@@ -83,7 +87,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      title: 'react-admin',
+      title: 'React-Antd',
       favicon: './src/favicon.ico'
     }),
     new ExtractTextPlugin('style/index.css'),

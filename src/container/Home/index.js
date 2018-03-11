@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Layout, Button } from 'antd';
+import TopHeader from './container/TopHeader';
 import SideNav from './container/SideNav';
 import Main from './container/Main';
 import './style.less';
@@ -14,16 +15,17 @@ export default class Home extends React.Component {
   handleCollapse = collapsed => {
     this.setState({ collapsed });
   };
-  handleLogout = () => {
-    sessionStorage.removeItem('sessionId');
-    this.props.history.push('/login');
-  };
   render() {
     const { collapsed } = this.state;
+
     return (
       <div>
         {sessionStorage.getItem('sessionId') === null ? (
-          <Redirect to="/login" />
+          <Redirect
+            to={`/login?redirectTo=${encodeURIComponent(
+              window.location.pathname
+            )}`}
+          />
         ) : (
           <Layout id="layout">
             <Sider
@@ -35,9 +37,7 @@ export default class Home extends React.Component {
             </Sider>
             <Layout>
               <Header>
-                <Button type="primary" onClick={this.handleLogout}>
-                  退出
-                </Button>
+                <TopHeader />
               </Header>
               <Content>
                 <Main />

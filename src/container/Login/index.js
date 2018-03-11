@@ -1,13 +1,23 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form, Icon, Input, Button, message } from 'antd';
+import queryString from 'query-string';
 import { handleLogin } from 'api';
 import './style.less';
 
 const FormItem = Form.Item;
 
 class Login extends React.Component {
-  handleSubmit = e => {
+  componentWillMount() {
+    document.title = '登录 - ' + document.title;
+    const redirectTo = queryString.parse(
+      decodeURIComponent(window.location.search.split('?')[1])
+    )['redirectTo'];
+    if (typeof redirectTo === 'string' && redirectTo.length) {
+      this.redirectTo = redirectTo;
+    }
+  }
+  onSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -15,7 +25,8 @@ class Login extends React.Component {
         handleLogin(data, res => {
           if (res.status === 0) {
             sessionStorage.setItem('sessionId', res.data.id);
-            this.props.history.push('/');
+            sessionStorage.setItem('username', res.data.username);
+            this.props.history.push(this.redirectTo);
             message.success('登录成功');
           } else {
             if (typeof res.msg === 'string') {
@@ -36,7 +47,7 @@ class Login extends React.Component {
         {sessionStorage.getItem('sessionId') !== null ? (
           <Redirect to="/" />
         ) : null}
-        <Form onSubmit={this.handleSubmit} className="login-form">
+        <Form onSubmit={this.onSubmit} className="login-form">
           <FormItem>
             <h2>React-Antd 后台管理系统</h2>
           </FormItem>

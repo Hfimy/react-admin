@@ -16,7 +16,8 @@ module.exports = {
     alias: {
       container: path.resolve(__dirname, 'src/container'),
       component: path.resolve(__dirname, 'src/component'),
-      public: path.resolve(__dirname, 'src/public')
+      public: path.resolve(__dirname, 'src/public'),
+      api: path.resolve(__dirname, 'src/api')
     }
   },
   module: {
@@ -65,7 +66,7 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      title: 'react-admin',
+      title: 'React-Antd',
       favicon: './src/favicon.ico'
     }),
     new ExtractTextPlugin('style/index.css'),
