@@ -1,0 +1,40 @@
+.login {
+  height: 100vh;
+  width: 100vw;
+  background-image: url('../../public/image/bg.gif');
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .login-form {
+    width: 480px;
+    height: 380px;
+    padding: 40px 30px;
+    background-color: #eee;
+    .ant-form-item {
+      margin-bottom: 30px;
+      h2 {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+      }
+      .ant-input-affix-wrapper,
+      .ant-form-explain,
+      .login-form-button {
+        width: 80%;
+        margin-left: 10%;
+      }
+
+      .ant-input {
+        height: 40px;
+      }
+      .ant-form-explain {
+        position: absolute;
+        top: 40px;
+      }
+      .login-form-button {
+        height: 40px;
+      }
+    }
+  }
+}

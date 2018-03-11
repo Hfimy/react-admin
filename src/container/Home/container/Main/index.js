@@ -5,6 +5,8 @@ import Commodity from 'container/Commodity';
 import Category from 'container/Category';
 import UserList from 'container/UserList';
 import OrderList from 'container/OrderList';
+import NotFound from 'container/NotFound';
+
 export default class Main extends React.Component {
   render() {
     return (
@@ -14,7 +16,8 @@ export default class Main extends React.Component {
         <Route path="/category" component={Category} />
         <Route path="/userlist" component={UserList} />
         <Route path="/orderlist" component={OrderList} />
-        <Redirect to="/" />
+        <Route path="/404" component={NotFound} />
+        <Redirect to="/404" />
       </Switch>
     );
   }

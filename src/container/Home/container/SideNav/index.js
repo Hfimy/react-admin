@@ -12,9 +12,18 @@ export default class SideNav extends React.Component {
     selectedKeys: ['1'],
     defaultOpenKeys: []
   };
-  componentWillMount() {
+  componentDidMount() {
     const { routeData, subMenuData } = data;
     const selectedKey = routeData.get(this.props.location.pathname);
+    const openKey = subMenuData.has(selectedKey)
+      ? subMenuData.get(selectedKey)
+      : undefined;
+    this.setState({ selectedKeys: [selectedKey], defaultOpenKeys: [openKey] });
+  }
+  //主要针对重定向404页面侧边导航的更新
+  componentWillReceiveProps(nextProps) {
+    const { routeData, subMenuData } = data;
+    const selectedKey = routeData.get(nextProps.location.pathname);
     const openKey = subMenuData.has(selectedKey)
       ? subMenuData.get(selectedKey)
       : undefined;
@@ -29,7 +38,7 @@ export default class SideNav extends React.Component {
       <nav class="side-nav">
         <h2>
           <Link to="/" onClick={() => this.handleSelect({ key: '1' })}>
-            <img src={require('public/image/logo.svg')} />React Admin
+            <img src={require('public/image/logo.svg')} />React Antd
           </Link>
         </h2>
         <Menu
@@ -88,6 +97,12 @@ export default class SideNav extends React.Component {
               <NavLink to="/orderlist">订单管理</NavLink>
             </Menu.Item>
           </SubMenu>
+          <Menu.Item key="6">
+            <NavLink to="/404">
+              <Icon type="warning" />
+              <span>404</span>
+            </NavLink>
+          </Menu.Item>
         </Menu>
       </nav>
     );

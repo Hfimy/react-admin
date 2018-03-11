@@ -3,7 +3,8 @@ const routeData = new Map([
   ['/commodity', '2'],
   ['/category', '3'],
   ['/userlist', '4'],
-  ['/orderlist', '5']
+  ['/orderlist', '5'],
+  ['/404', '6']
 ]);
 
 const subMenuData = new Map([

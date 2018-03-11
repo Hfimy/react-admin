@@ -11,12 +11,20 @@ module.exports = {
     filename: 'js/[name].js',
     publicPath: '/'
   },
+  devtool: 'source-map',
   devServer: {
     port: 8088,
     contentBase: path.resolve(__dirname, 'dist'),
     compress: true,
     historyApiFallback: true,
-    hot: true
+    hot: true,
+    proxy: {
+      '/manage': {
+        target: 'http://admintest.happymmall.com',
+        changeOrigin: true
+      }
+      // '/manage': 'http://admintest.happymmall.com'//此种写法报错？
+    }
     // open: true
   },
   resolve: {
@@ -24,7 +32,8 @@ module.exports = {
     alias: {
       container: path.resolve(__dirname, 'src/container'),
       component: path.resolve(__dirname, 'src/component'),
-      public: path.resolve(__dirname, 'src/public')
+      public: path.resolve(__dirname, 'src/public'),
+      api: path.resolve(__dirname, 'src/api')
     }
   },
   module: {
