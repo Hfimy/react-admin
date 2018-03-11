@@ -1,0 +1,45 @@
+.detail {
+  .color-box {
+    p {
+      margin: 0;
+      padding: 0;
+    }
+    &.brown {
+      background-color: #f0ad4e;
+      color: #fff;
+    }
+    &.green {
+      background-color: #5cb85c;
+      color: #fff;
+    }
+    &.blue {
+      background-color: #4cb1cf;
+      color: #fff;
+    }
+    display: block;
+    height: 200px;
+    padding: 20px 0;
+    text-align: center;
+    opacity: 0.8;
+    transition: all 0.5s;
+    .count {
+      font-size: 50px;
+      height: 80px;
+      line-height: 80px;
+    }
+    .desc {
+      font-size: 18px;
+      i {
+        margin-right: 5px;
+      }
+    }
+    &:focus {
+      text-decoration: none;
+    }
+    &:hover {
+      color: #555;
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+  }
+}
