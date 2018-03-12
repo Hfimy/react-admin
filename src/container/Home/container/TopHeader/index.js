@@ -7,16 +7,15 @@ import './style.less';
 @withRouter
 export default class TopHeader extends React.Component {
   showConfirm = () => {
-    const self = this;
     Modal.confirm({
       title: '确认退出吗',
       okText: '确认',
       okType: 'danger',
       cancelText: '取消',
-      onOk() {
+      onOk: () => {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
-            self.onLogout();
+            this.onLogout();
             resolve();
           }, 1000);
         });
