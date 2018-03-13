@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PageTitle from 'component/PageTitle';
 import { Row, Col } from 'antd';
 import './style.less';
 
@@ -7,7 +8,8 @@ export default class NotFound extends React.Component {
   render() {
     return (
       <div class="error-page">
-        <Row>
+        <PageTitle title="异常页 / 404" />
+        <Row class="error-container">
           <Col span={4} />
           <Col span={7}>
             <div class="bg-box" />
