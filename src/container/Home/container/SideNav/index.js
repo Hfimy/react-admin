@@ -66,10 +66,10 @@ export default class SideNav extends React.Component {
             }
           >
             <Menu.Item key="2">
-              <NavLink to="/commodity">商品管理</NavLink>
+              <NavLink to="/product/commodity">商品管理</NavLink>
             </Menu.Item>
             <Menu.Item key="3">
-              <NavLink to="/category">品类管理</NavLink>
+              <NavLink to="/product/category">品类管理</NavLink>
             </Menu.Item>
           </SubMenu>
           <SubMenu
@@ -82,7 +82,7 @@ export default class SideNav extends React.Component {
             }
           >
             <Menu.Item key="4">
-              <NavLink to="/userlist">用户列表</NavLink>
+              <NavLink to="/user/list">用户列表</NavLink>
             </Menu.Item>
           </SubMenu>
           <SubMenu
@@ -95,7 +95,7 @@ export default class SideNav extends React.Component {
             }
           >
             <Menu.Item key="5">
-              <NavLink to="/orderlist">订单管理</NavLink>
+              <NavLink to="/order/list">订单管理</NavLink>
             </Menu.Item>
           </SubMenu>
           <SubMenu
@@ -108,7 +108,7 @@ export default class SideNav extends React.Component {
             }
           >
             <Menu.Item key="6">
-              <NavLink to="/404">404</NavLink>
+              <NavLink to="/error/404">404</NavLink>
             </Menu.Item>
           </SubMenu>
         </Menu>

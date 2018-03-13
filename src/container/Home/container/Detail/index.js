@@ -31,7 +31,7 @@ export default class Detail extends React.Component {
         <PageTitle title={'首页'} />
         <Row gutter={96}>
           <Col span={8}>
-            <Link to="/commodity" class="color-box brown">
+            <Link to="/product/commodity" class="color-box brown">
               <p class="count">{productCount}</p>
               <p class="desc">
                 <Icon type="shop" />
@@ -40,7 +40,7 @@ export default class Detail extends React.Component {
             </Link>
           </Col>
           <Col span={8}>
-            <Link to="/userlist" class="color-box green">
+            <Link to="/user/list" class="color-box green">
               <p class="count">{userCount}</p>
               <p class="desc">
                 <Icon type="user" />
@@ -49,7 +49,7 @@ export default class Detail extends React.Component {
             </Link>
           </Col>
           <Col span={8}>
-            <Link to="/orderlist" class="color-box blue">
+            <Link to="/order/list" class="color-box blue">
               <p class="count">{orderCount}</p>
               <p class="desc">
                 <Icon type="file" />

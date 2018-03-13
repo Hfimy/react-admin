@@ -15,19 +15,21 @@ export default class Table extends React.Component {
         <td title={item.username}>{item.username}</td>
         <td title={item.email}>{item.email}</td>
         <td title={item.phone}>{item.phone}</td>
-        <td title={item.createTime}>{item.createTime}</td>
+        <td title={new Date(item.createTime).toLocaleString()}>
+          {new Date(item.createTime).toLocaleString()}
+        </td>
       </tr>
     ));
-    const errorBody = (
+    const errorBody = firstLoading ? (
+      <tr>
+        <td class="first-td">加载中...</td>
+      </tr>
+    ) : (
       <tr>
         <td class="error-td">没有找到相应的结果 ~</td>
       </tr>
     );
-    const firstBody = (
-      <tr>
-        <td class="first-td">加载中...</td>
-      </tr>
-    );
+
     return (
       <table class="custom-table">
         <thead>
@@ -39,9 +41,7 @@ export default class Table extends React.Component {
             ))}
           </tr>
         </thead>
-        <tbody>
-          {firstLoading ? firstBody : dataSource.length ? listBody : errorBody}
-        </tbody>
+        <tbody>{dataSource.length ? listBody : errorBody}</tbody>
       </table>
     );
   }

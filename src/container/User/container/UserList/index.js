@@ -24,7 +24,8 @@ export default class UserList extends React.Component {
       if (res.status === 0) {
         this.setState({
           data: res.data.list,
-          total: res.data.total
+          total: res.data.total,
+          firstLoading: false
         });
       } else {
         if (typeof res.msg === 'string') {
@@ -32,8 +33,8 @@ export default class UserList extends React.Component {
         } else {
           message.error('未知获取数据错误');
         }
+        this.setState({ firstLoading: false, data: [] });
       }
-      this.setState({ firstLoading: false });
     });
   }
   onChange = pageNum => {

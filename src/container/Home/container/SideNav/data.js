@@ -1,10 +1,10 @@
 const routeData = new Map([
   ['/', '1'],
-  ['/commodity', '2'],
-  ['/category', '3'],
-  ['/userlist', '4'],
-  ['/orderlist', '5'],
-  ['/404', '6']
+  ['/product/commodity', '2'],
+  ['/product/category', '3'],
+  ['/user/list', '4'],
+  ['/order/list', '5'],
+  ['error/404', '6']
 ]);
 
 const subMenuData = new Map([
