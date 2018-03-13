@@ -1,7 +1,9 @@
 import React from 'react';
-import { message, Pagination, Table } from 'antd';
+import { message, Pagination } from 'antd';
 import PageTitle from 'component/PageTitle';
+import Table from 'component/Table';
 import { getUserList } from 'api';
+import './style.less';
 export default class UserList extends React.Component {
   state = {
     current: 1,
@@ -14,13 +16,16 @@ export default class UserList extends React.Component {
       { title: '邮箱', dataIndex: 'eamil', key: 'email' },
       { title: '电话', dataIndex: 'phone', key: 'phone' },
       { title: '注册时间', dataIndex: 'createTime', key: 'createTime' }
-    ]
+    ],
+    firstLoading: true
   };
   componentWillMount() {
     getUserList(this.state.current, res => {
-      console.log('res', res);
       if (res.status === 0) {
-        this.setState({ data: res.data.list, total: res.data.total });
+        this.setState({
+          data: res.data.list,
+          total: res.data.total
+        });
       } else {
         if (typeof res.msg === 'string') {
           message.error(res.msg);
@@ -28,6 +33,7 @@ export default class UserList extends React.Component {
           message.error('未知获取数据错误');
         }
       }
+      this.setState({ firstLoading: false });
     });
   }
   onChange = pageNum => {
@@ -38,7 +44,6 @@ export default class UserList extends React.Component {
       () => {
         getUserList(this.state.current, res => {
           if (res.status === 0) {
-            console.log(res);
             this.setState({ data: res.data.list, total: res.data.total });
           } else {
             if (typeof res.msg === 'string') {
@@ -52,16 +57,20 @@ export default class UserList extends React.Component {
     );
   };
   render() {
-    const { columns, current, total, data } = this.state;
+    const { columns, current, total, data, firstLoading } = this.state;
     const dataSource = data.map((item, index) => {
       const { id, username, email, phone, createTime } = item;
       return { key: index, id, username, email, phone, createTime };
     });
     return (
-      <div>
+      <div class="userlist-page">
         <PageTitle title="用户页 / 用户列表" />
-        <div>
-          <Table columns={columns} dataSource={dataSource} />
+        <div class="table-container">
+          <Table
+            columns={columns}
+            dataSource={dataSource}
+            firstLoading={firstLoading}
+          />
         </div>
         <Pagination
           showQuickJumper
