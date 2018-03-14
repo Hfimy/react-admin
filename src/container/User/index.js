@@ -7,8 +7,8 @@ export default class User extends React.Component {
     const { match } = this.props;
     return (
       <Switch>
-        <Route path={`${match.url}/list`} component={UserList} />
-        <Redirect to="error/404" />
+        <Route path={`${match.url}/list`} exact component={UserList} />
+        <Redirect to="/error/404" />
       </Switch>
     );
   }

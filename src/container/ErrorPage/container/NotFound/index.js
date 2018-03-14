@@ -5,6 +5,9 @@ import { Row, Col } from 'antd';
 import './style.less';
 
 export default class NotFound extends React.Component {
+  componentWillMount() {
+    document.title = '404 - React-Antd';
+  }
   render() {
     return (
       <div class="error-page">

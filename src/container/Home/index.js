@@ -17,13 +17,13 @@ export default class Home extends React.Component {
   };
   render() {
     const { collapsed } = this.state;
-
     return (
       <div>
         {sessionStorage.getItem('sessionId') === null ? (
           <Redirect
             to={`/login?redirectTo=${encodeURIComponent(
-              window.location.pathname
+              // window.location.pathname
+              this.props.location.pathname
             )}`}
           />
         ) : (

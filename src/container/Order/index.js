@@ -7,8 +7,8 @@ export default class Order extends React.Component {
     const { match } = this.props;
     return (
       <Switch>
-        <Route path={`${match.url}/list`} component={OrderList} />
-        <Redirect to="error/404" />
+        <Route path={`${match.url}/list`} exact component={OrderList} />
+        <Redirect to="/error/404" />
       </Switch>
     );
   }

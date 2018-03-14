@@ -15,7 +15,7 @@ export default class Main extends React.Component {
         <Route path="/user" component={User} />
         <Route path="/order" component={Order} />
         <Route path="/error" component={ErrorPage} />
-        <Redirect to="error/404" />
+        <Redirect to="/error/404" />
       </Switch>
     );
   }

@@ -9,9 +9,9 @@ const FormItem = Form.Item;
 
 class Login extends React.Component {
   componentWillMount() {
-    document.title = '登录 - ' + document.title;
+    document.title = '登录 - React-Antd';
     const redirectTo = queryString.parse(
-      decodeURIComponent(window.location.search.split('?')[1])
+      decodeURIComponent(this.props.location.search.split('?')[1])
     )['redirectTo'];
     if (typeof redirectTo === 'string' && redirectTo.length) {
       this.redirectTo = redirectTo;

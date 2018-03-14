@@ -12,6 +12,7 @@ export default class Detail extends React.Component {
     orderCount: 0
   };
   componentWillMount() {
+    document.title = '首页 - React-Antd';
     getStatisticData(res => {
       if (res.status === 0) {
         this.setState(res.data);

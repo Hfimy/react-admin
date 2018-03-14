@@ -7,8 +7,8 @@ export default class ErrorPage extends React.Component {
     const { match } = this.props;
     return (
       <Switch>
-        <Route path={`${match.url}/404`} component={NotFound} />
-        <Redirect to="error/404" />
+        <Route path={`${match.url}/404`} exact component={NotFound} />
+        <Redirect to="/error/404" />
       </Switch>
     );
   }
