@@ -1,13 +1,20 @@
 import queryString from 'query-string';
 
-export function getProductList(pageNum, cb) {
-  fetch('/manage/product/list.do', {
+export function getProductList(params, cb) {
+  let url = '/manage/product/list.do';
+  const data = { pageNum: params.pageNum };
+  if (params.type === 'search') {
+    url = '/manage/product/search.do';
+    data[params.searchType] = params.searchKeyWord;
+  }
+
+  fetch(url, {
     method: 'post',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: queryString.stringify({ pageNum })
+    body: queryString.stringify(data)
   })
     .then(res => {
       if (res.status === 200) {

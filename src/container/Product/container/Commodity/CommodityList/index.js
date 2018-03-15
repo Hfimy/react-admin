@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Immutable from 'immutable';
 import { message, Pagination, Button, Modal } from 'antd';
 import Table from 'component/Table';
+import Search from 'container/Product/component/Search';
 import { getProductList, updateProductStatus } from 'api';
 
 import './style.less';
@@ -41,8 +42,17 @@ export default class Commodity extends React.Component {
       }
     ]
   };
-  handleGetProductList = () => {
-    getProductList(this.state.current, res => {
+
+  //将请求商品列表与搜索商品合并，共用代码
+  handleGetProductList = (isSearch = false, searchType, searchKeyWord) => {
+    const { current } = this.state;
+    const params = { pageNum: current };
+    if (isSearch) {
+      params.type = 'search';
+      params.searchType = searchType;
+      params.searchKeyWord = searchKeyWord;
+    }
+    getProductList(params, res => {
       if (!this._isMounted) {
         return;
       }
@@ -61,6 +71,7 @@ export default class Commodity extends React.Component {
       }
     });
   };
+
   componentDidMount() {
     this._isMounted = true;
     document.title = '商品管理 - React-Antd';
@@ -105,6 +116,15 @@ export default class Commodity extends React.Component {
       onCancel() {}
     });
   };
+  onSearch = (searchType, searchKeyWord) => {
+    this.setState({ current: 1 }, () => {
+      if (searchKeyWord === '') {
+        this.handleGetProductList();
+      } else {
+        this.handleGetProductList(true, searchType, searchKeyWord);
+      }
+    });
+  };
   render() {
     const { columns, current, total, data } = this.state;
     const dataSource = data.map((item, index) => {
@@ -144,7 +164,7 @@ export default class Commodity extends React.Component {
           </div>
         ),
         operation: (
-          <div>
+          <div class="product-operation">
             <Link key="detail" to={`${this.props.match.url}/detail`}>
               详情
             </Link>
@@ -158,6 +178,7 @@ export default class Commodity extends React.Component {
     const { match } = this.props;
     return (
       <div class="productlist-page">
+        <Search onSearch={this.onSearch} width="1100px" />
         <div class="table-container">
           <Table
             columns={columns}
