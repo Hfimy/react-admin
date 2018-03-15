@@ -1,14 +1,28 @@
 import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
 import PageTitle from 'component/PageTitle';
 
+import CommodityList from './CommodityList';
+import CommodityDetail from './CommodityDetail';
+import CommodityEdit from './CommodityEdit';
+
 export default class Commodity extends React.Component {
-  componentWillMount() {
-    document.title = '商品管理 - React-Antd';
-  }
   render() {
+    const { match } = this.props;
     return (
-      <div>
+      <div class="product-page">
         <PageTitle title="商品页 / 商品管理" />
+        <Switch>
+          <Route path={`${match.url}/`} exact component={CommodityList} />
+          <Route
+            path={`${match.url}/detail`}
+            exact
+            component={CommodityDetail}
+          />
+          <Route path={`${match.url}/edit`} exact component={CommodityEdit} />
+          <Redirect to="/error/404" />
+        </Switch>
       </div>
     );
   }

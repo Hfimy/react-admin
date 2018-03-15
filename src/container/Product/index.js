@@ -9,7 +9,8 @@ export default class Product extends React.Component {
     return (
       <Switch>
         <Route path={`${match.url}/category`} exact component={Category} />
-        <Route path={`${match.url}/commodity`} exact component={Commodity} />
+        <Route path={`${match.url}/commodity`} component={Commodity} />
+
         <Redirect to="/error/404" />
       </Switch>
     );

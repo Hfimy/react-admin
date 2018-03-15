@@ -5,7 +5,8 @@ import './style.less';
 export default class Table extends React.Component {
   static propTypes = {
     columns: PropTypes.array.isRequired,
-    dataSource: PropTypes.object.isRequired //immutable对象
+    dataSource: PropTypes.object.isRequired, //immutable对象
+    tableWidth: PropTypes.string
   };
   state = {
     isFirstLoading: true
@@ -16,29 +17,9 @@ export default class Table extends React.Component {
     }
   }
   render() {
-    let { columns, dataSource } = this.props;
+    let { columns, dataSource, tableWidth = '1000px' } = this.props;
     dataSource = dataSource.toJS(); //自身为immutable对象，拥有toJS()方法，无需再次引入immutable
-    const listBody = dataSource.map(item => (
-      <tr key={item.key}>
-        {columns.map(column => {
-          if (column.dataIndex === 'createTime') {
-            return (
-              <td
-                key={column.key}
-                title={new Date(item[column.dataIndex]).toLocaleString()}
-              >
-                {new Date(item[column.dataIndex]).toLocaleString()}
-              </td>
-            );
-          }
-          return (
-            <td key={column.key} title={item[column.dataIndex]}>
-              {item[column.dataIndex]}
-            </td>
-          );
-        })}
-      </tr>
-    ));
+
     const listInfo = this.state.isFirstLoading ? (
       <tr>
         <td class="first-td">加载中...</td>
@@ -48,12 +29,61 @@ export default class Table extends React.Component {
         <td class="error-td">没有找到相应的结果 ~</td>
       </tr>
     );
+
+    const listBody = dataSource.map(item => (
+      <tr key={item.key}>
+        {columns.map(column => {
+          //将时间处理抽离到外面
+          // if (column.dataIndex === 'createTime') {
+          //   return (
+          //     <td
+          //       key={column.dataIndex}
+          //       title={new Date(item[column.dataIndex]).toLocaleString()}
+          //     >
+          //       {new Date(item[column.dataIndex]).toLocaleString()}
+          //     </td>
+          //   );
+          // }
+
+          // if (Array.isArray(item[column.dataIndex])) {
+          //   return (
+          //     <td key={column.dataIndex}>
+          //       {item[column.dataIndex].map(_item => <span>{_item}</span>)}
+          //     </td>
+          //   );
+          // }
+          //改为支持自定义传入内容
+          // if (item[column.dataIndex]['type'] === 'td') {
+          //   return item[column.dataIndex];
+          // }
+          // if (typeof item[column.dataIndex] === 'object') {
+          //   return (
+          //     <td
+          //       key={column.dataIndex}
+          //       style={{ width: column.width || '20%' }}
+          //     >
+          //       {item[column.dataIndex]}
+          //     </td>
+          //   );
+          // }
+          return (
+            <td key={column.dataIndex} style={{ width: column.width || '20%' }}>
+              {item[column.dataIndex]}
+            </td>
+          );
+        })}
+      </tr>
+    ));
+
     return (
-      <table class="custom-table">
+      <table class="custom-table" style={{ width: tableWidth }}>
         <thead>
           <tr>
             {columns.map(column => (
-              <th key={column.key} title={column.title}>
+              <th
+                key={column.dataIndex}
+                style={{ width: column.width || '20%' }}
+              >
                 {column.title}
               </th>
             ))}

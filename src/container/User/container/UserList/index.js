@@ -4,7 +4,8 @@ import { message, Pagination } from 'antd';
 import PageTitle from 'component/PageTitle';
 import Table from 'component/Table';
 import { getUserList } from 'api';
-import './style.less';
+
+const customWidth = ['12%', '16%', '18%', '26%', '28%'];
 export default class UserList extends React.Component {
   state = {
     current: 1,
@@ -12,16 +13,20 @@ export default class UserList extends React.Component {
     total: 0,
     data: [],
     columns: [
-      { title: 'ID', dataIndex: 'id', key: 'id' },
-      { title: '用户名', dataIndex: 'username', key: 'username' },
-      { title: '邮箱', dataIndex: 'email', key: 'email' },
-      { title: '电话', dataIndex: 'phone', key: 'phone' },
-      { title: '注册时间', dataIndex: 'createTime', key: 'createTime' }
+      { title: 'ID', dataIndex: 'id', width: customWidth[0] },
+      { title: '用户名', dataIndex: 'username', width: customWidth[1] },
+      { title: '电话', dataIndex: 'phone', width: customWidth[2] },
+      { title: '邮箱', dataIndex: 'email', width: customWidth[3] },
+      { title: '注册时间', dataIndex: 'createTime', width: customWidth[4] }
     ]
   };
   componentDidMount() {
+    this._isMounted = true;
     document.title = '用户列表 - React-Antd';
     getUserList(this.state.current, res => {
+      if (!this._isMounted) {
+        return;
+      }
       if (res.status === 0) {
         this.setState({
           data: res.data.list,
@@ -37,6 +42,9 @@ export default class UserList extends React.Component {
       }
     });
   }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
   onChange = pageNum => {
     this.setState(
       {
@@ -44,6 +52,9 @@ export default class UserList extends React.Component {
       },
       () => {
         getUserList(this.state.current, res => {
+          if (!this._isMounted) {
+            return;
+          }
           if (res.status === 0) {
             this.setState({ data: res.data.list, total: res.data.total });
           } else {
@@ -52,6 +63,7 @@ export default class UserList extends React.Component {
             } else {
               message.error('未知获取数据错误');
             }
+            this.setState({ data: [] });
           }
         });
       }
@@ -61,9 +73,15 @@ export default class UserList extends React.Component {
     const { columns, current, total, data } = this.state;
     const dataSource = data.map((item, index) => {
       const { id, username, email, phone, createTime } = item;
-      return { key: index, id, username, email, phone, createTime };
+      return {
+        key: index,
+        id,
+        username,
+        phone,
+        email,
+        createTime: new Date(createTime).toLocaleString()
+      };
     });
-    console.log(this.props);
     return (
       <div class="userlist-page">
         <PageTitle title="用户页 / 用户列表" />

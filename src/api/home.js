@@ -8,8 +8,6 @@ export function getStatisticData(cb) {
       }
       throw new Error('服务器错误');
     })
-    .then(res => {
-      cb && cb(res);
-    })
+    .then(res => cb && cb(res))
     .catch(err => cb && cb({ status: 1, msg: err }));
 }

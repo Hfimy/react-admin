@@ -11,9 +11,13 @@ export default class Detail extends React.Component {
     userCount: 0,
     orderCount: 0
   };
-  componentWillMount() {
+  componentDidMount() {
+    this._isMounted = true;
     document.title = '首页 - React-Antd';
     getStatisticData(res => {
+      if (!this._isMounted) {
+        return;
+      }
       if (res.status === 0) {
         this.setState(res.data);
       } else {
@@ -24,6 +28,9 @@ export default class Detail extends React.Component {
         }
       }
     });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   render() {
     const { productCount, userCount, orderCount } = this.state;
