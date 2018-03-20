@@ -6,8 +6,8 @@ import './style.less';
 
 export default class Search extends React.Component {
   static propTypes = {
-    onSearch: PropTypes.func.isRequired,
-    width: PropTypes.string
+    onSearch: PropTypes.func.isRequired
+    // width: PropTypes.string
   };
   state = {
     searchType: 'productId',
@@ -21,7 +21,6 @@ export default class Search extends React.Component {
     });
   };
   onSearch = () => {
-    // console.log(this.state);
     const { searchType, searchKeyword } = this.state;
     this.props.onSearch(searchType, searchKeyword.trim());
   };
@@ -32,9 +31,9 @@ export default class Search extends React.Component {
   };
   render() {
     const { searchType, searchKeyword } = this.state;
-    const { width = '1000px' } = this.props;
+    // const { width = '1000px' } = this.props;
     return (
-      <div class="search" style={{ width: width }}>
+      <div class="search">
         <select
           name="searchType"
           defaultValue="productId"

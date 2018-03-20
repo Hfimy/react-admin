@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Immutable from 'immutable';
-import { message, Pagination, Button, Modal } from 'antd';
+import { message, Pagination, Button, Modal, Icon, Row, Col } from 'antd';
 import Table from 'component/Table';
 import Search from 'container/Product/component/Search';
 import { getProductList, updateProductStatus } from 'api';
@@ -178,7 +178,17 @@ export default class Commodity extends React.Component {
     const { match } = this.props;
     return (
       <div class="productlist-page">
-        <Search onSearch={this.onSearch} width="1100px" />
+        <div class="header">
+          <Search onSearch={this.onSearch} />
+          <div class="product-add">
+            <Link to={`${this.props.match.url}/add`}>
+              <Button type="primary">
+                <Icon type="plus" />添加商品
+              </Button>
+            </Link>
+          </div>
+        </div>
+
         <div class="table-container">
           <Table
             columns={columns}

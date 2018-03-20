@@ -6,6 +6,7 @@ import PageTitle from 'component/PageTitle';
 import CommodityList from './CommodityList';
 import CommodityDetail from './CommodityDetail';
 import CommodityEdit from './CommodityEdit';
+import CommodityAdd from './CommodityAdd';
 
 export default class Commodity extends React.Component {
   render() {
@@ -21,6 +22,7 @@ export default class Commodity extends React.Component {
             component={CommodityDetail}
           />
           <Route path={`${match.url}/edit`} exact component={CommodityEdit} />
+          <Route path={`${match.url}/add`} exact component={CommodityAdd} />
           <Redirect to="/error/404" />
         </Switch>
       </div>
