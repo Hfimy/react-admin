@@ -4,7 +4,7 @@ import { Layout, Button } from 'antd';
 import TopHeader from './container/TopHeader';
 import SideNav from './container/SideNav';
 import Main from './container/Main';
-import './style.less';
+import 'public/style/home/index.less';
 
 const { Header, Content, Footer, Sider } = Layout;
 

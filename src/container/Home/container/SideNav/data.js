@@ -1,6 +1,9 @@
 const routeData = new Map([
   ['/', '1'],
   ['/product/commodity', '2'],
+  ['/product/commodity/detail', '2'],
+  ['/product/commodity/add', '2'],
+  ['/product/commodity/edit', '2'],
   ['/product/category', '3'],
   ['/user/list', '4'],
   ['/order/list', '5'],

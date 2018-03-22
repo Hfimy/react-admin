@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Form, Icon, Input, Button, message } from 'antd';
 import queryString from 'query-string';
 import { handleLogin } from 'api';
-import './style.less';
+import 'public/style/login/index.less';
 
 const FormItem = Form.Item;
 

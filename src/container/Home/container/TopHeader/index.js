@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Icon, message, Modal, Button } from 'antd';
 import { handleLogout } from 'api';
-import './style.less';
+import 'public/style/home/top-header.less';
 
 @withRouter
 export default class TopHeader extends React.Component {

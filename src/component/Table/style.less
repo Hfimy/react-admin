@@ -1,37 +1,37 @@
 .custom-table {
-    width: 1000px;
-    tr {
-        display: block;
-        padding: 3px;
-        border-bottom: solid 0.5px #ccc; // min-width: 936px;
+  width: 980px;
+  tr {
+    display: block;
+    padding: 3px;
+    border-bottom: solid 0.5px #ccc; // min-width: 936px;
+  }
+  th,
+  td {
+    display: inline-block;
+    width: 20%;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    line-height: 38px;
+    padding: 0 5px; //改为支持自定义传入宽度
+    // &:first-child {
+    //     width: 15%;
+    // }
+    // &:nth-child(2) {
+    //     width: 18%;
+    // }
+    // &:nth-child(4) {
+    //     width: 27%;
+    // }
+    &.error-td,
+    &.first-td {
+      width: 100%;
+      text-align: center;
     }
-    th,
-    td {
-        display: inline-block;
-        width: 20%;
-        text-align: left;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-size: 14px;
-        line-height: 38px;
-        padding: 0 5px; //改为支持自定义传入宽度
-        // &:first-child {
-        //     width: 15%;
-        // }
-        // &:nth-child(2) {
-        //     width: 18%;
-        // }
-        // &:nth-child(4) {
-        //     width: 27%;
-        // }
-        &.error-td,
-        &.first-td {
-            width: 100%;
-            text-align: center;
-        }
-    }
-    th {
-        font-size: 16px;
-    }
+  }
+  th {
+    font-size: 16px;
+  }
 }

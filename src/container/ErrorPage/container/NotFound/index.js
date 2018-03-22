@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PageTitle from 'component/PageTitle';
 import { Row, Col } from 'antd';
-import './style.less';
+import 'public/style/errorPage/not-found.less';
 
 export default class NotFound extends React.Component {
   componentWillMount() {

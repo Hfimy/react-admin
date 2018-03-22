@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Row, Col, Icon, message } from 'antd';
 import PageTitle from 'component/PageTitle';
 import { getStatisticData } from 'api';
-import './style.less';
+import 'public/style/home/detail.less';
 
 export default class Detail extends React.Component {
   state = {

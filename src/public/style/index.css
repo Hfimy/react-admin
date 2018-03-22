@@ -1,15 +1,15 @@
 /* @import '../node_modules/font-awesome/css/font-awesome.min.css'; */
 
 @font-face {
-    font-family: 'anticon';
-    src: url('../font/antd.woff') format('woff');
+  font-family: 'anticon';
+  src: url('../font/antd.woff') format('woff');
 }
 
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    min-width: 750px;
+  /* min-width: 1160px; */
 }

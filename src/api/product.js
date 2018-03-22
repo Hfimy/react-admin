@@ -42,5 +42,34 @@ export function updateProductStatus(data, cb) {
       throw new Error('服务器错误');
     })
     .then(res => cb && cb(res))
-    .catch(err => cb && cb(err));
+    .catch(err => cb && cb({ status: 1, msg: err }));
+}
+
+export function getCategoryId(categoryId = 0, cb) {
+  const url = `/manage/category/get_category.do?categoryId=${categoryId}`;
+  fetch(url, { credentials: 'include' })
+    .then(res => {
+      if (res.status === 200) {
+        return res.json();
+      }
+      throw new Error('服务器错误');
+    })
+    .then(res => cb && cb(res))
+    .catch(err => cb && cb({ status: 1, msg: err }));
+}
+
+export function uploadImage(url, form, cb) {
+  fetch(url, {
+    method: 'post',
+    credentials: 'include',
+    body: form
+  })
+    .then(res => {
+      if (res.status === 200) {
+        return res.json();
+      }
+      throw new Error('服务器错误');
+    })
+    .then(res => cb && cb(res))
+    .catch(err => cb && cb({ status: 1, msg: err }));
 }

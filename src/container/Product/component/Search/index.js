@@ -31,7 +31,6 @@ export default class Search extends React.Component {
   };
   render() {
     const { searchType, searchKeyword } = this.state;
-    // const { width = '1000px' } = this.props;
     return (
       <div class="search">
         <select

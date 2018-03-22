@@ -8,6 +8,7 @@ import CommodityDetail from './CommodityDetail';
 import CommodityEdit from './CommodityEdit';
 import CommodityAdd from './CommodityAdd';
 
+import 'public/style/product/commodity.less';
 export default class Commodity extends React.Component {
   render() {
     const { match } = this.props;

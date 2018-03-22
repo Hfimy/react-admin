@@ -17,7 +17,7 @@ export default class Table extends React.Component {
     }
   }
   render() {
-    let { columns, dataSource, tableWidth = '1000px' } = this.props;
+    let { columns, dataSource, tableWidth = '980px' } = this.props;
     dataSource = dataSource.toJS(); //自身为immutable对象，拥有toJS()方法，无需再次引入immutable
 
     const listInfo = this.state.isFirstLoading ? (

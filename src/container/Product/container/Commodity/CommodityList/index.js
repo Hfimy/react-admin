@@ -6,7 +6,7 @@ import Table from 'component/Table';
 import Search from 'container/Product/component/Search';
 import { getProductList, updateProductStatus } from 'api';
 
-import './style.less';
+import 'public/style/product/commodity-list.less';
 
 const customWidth = ['10%', '42%', '15%', '18%', '15%'];
 export default class Commodity extends React.Component {
@@ -190,11 +190,7 @@ export default class Commodity extends React.Component {
         </div>
 
         <div class="table-container">
-          <Table
-            columns={columns}
-            dataSource={Immutable.fromJS(dataSource)}
-            tableWidth="1100px"
-          />
+          <Table columns={columns} dataSource={Immutable.fromJS(dataSource)} />
         </div>
         <Pagination
           showQuickJumper
