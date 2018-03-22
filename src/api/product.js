@@ -62,6 +62,9 @@ export function uploadImage(url, form, cb) {
   fetch(url, {
     method: 'post',
     credentials: 'include',
+    headers: {
+      // 'Content-Type': 'multipart/form-data'
+    },
     body: form
   })
     .then(res => {
@@ -72,4 +75,24 @@ export function uploadImage(url, form, cb) {
     })
     .then(res => cb && cb(res))
     .catch(err => cb && cb({ status: 1, msg: err }));
+}
+
+export function uploadRichImage(file, cb) {
+  const url = '/manage/product/richtext_img_upload.do';
+  const form = new FormData();
+  form.append('upload_file', file);
+
+  fetch(url, {
+    method: 'post',
+    credentials: 'include',
+    body: form
+  })
+    .then(res => {
+      if (res.status === 200) {
+        return res.json();
+      }
+      throw new Error('服务器错误');
+    })
+    .then(res => cb && cb(res))
+    .catch(err => cb && cb({ success: false, msg: err }));
 }

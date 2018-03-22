@@ -1991,13 +1991,21 @@ domutils@1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
-draft-js@^0.10.0, draft-js@~0.10.0:
+draft-js@^0.10.0, draft-js@^0.10.5, draft-js@~0.10.0:
   version "0.10.5"
   resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.10.5.tgz#bfa9beb018fe0533dbb08d6675c371a6b08fa742"
   dependencies:
     fbjs "^0.8.15"
     immutable "~3.7.4"
     object-assign "^4.1.0"
+
+draftjs-to-html@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/draftjs-to-html/-/draftjs-to-html-0.8.3.tgz#0ca3c273e802ed3b3bbf12e3900ebb70fd95517f"
+
+draftjs-utils@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/draftjs-utils/-/draftjs-utils-0.9.3.tgz#781254908beb7ca9eff6da63bc7d964ddd03ec22"
 
 ecc-jsbn@~0.1.1:
   version "0.1.1"
@@ -2791,6 +2799,10 @@ html-minifier@^3.2.3:
     relateurl "0.2.x"
     uglify-js "3.3.x"
 
+html-to-draftjs@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/html-to-draftjs/-/html-to-draftjs-1.3.0.tgz#9de3de81d8ff801f167ef34a6b93cbd7a9c2f85c"
+
 html-webpack-plugin@^3.0.4:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-3.0.6.tgz#d35b0452aae129a8a9f3fac44a169a625d8cf3fa"
@@ -2879,7 +2891,7 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
 
-immutable@^3.7.4:
+immutable@^3.7.4, immutable@^3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
 
@@ -3372,6 +3384,12 @@ less@^3.0.1:
     promise "^7.1.1"
     request "2.81.0"
     source-map "^0.5.3"
+
+linkify-it@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/linkify-it/-/linkify-it-2.0.3.tgz#d94a4648f9b1c179d64fa97291268bdb6ce9434f"
+  dependencies:
+    uc.micro "^1.0.1"
 
 load-json-file@^1.0.0:
   version "1.1.0"
@@ -4925,6 +4943,16 @@ react-dom@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-draft-wysiwyg@^1.12.11:
+  version "1.12.11"
+  resolved "https://registry.yarnpkg.com/react-draft-wysiwyg/-/react-draft-wysiwyg-1.12.11.tgz#6d7b827ff4473410b037c8f9c90980fe2e839c97"
+  dependencies:
+    classnames "^2.2.5"
+    draftjs-utils "^0.9.3"
+    html-to-draftjs "^1.3.0"
+    linkify-it "^2.0.3"
+    prop-types "^15.6.0"
+
 react-hot-loader@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.0.0.tgz#3452fa9bc0d0ba9dfc5b0ccfa25101ca8dbd2de2"
@@ -5866,6 +5894,10 @@ type-is@~1.6.15:
 ua-parser-js@^0.7.9:
   version "0.7.17"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
+
+uc.micro@^1.0.1:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/uc.micro/-/uc.micro-1.0.5.tgz#0c65f15f815aa08b560a61ce8b4db7ffc3f45376"
 
 uglify-js@3.3.x:
   version "3.3.13"

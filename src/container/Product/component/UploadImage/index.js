@@ -106,7 +106,6 @@ export default class UploadImage extends React.Component {
         <div class="ant-upload-text">Upload</div>
       </div>
     );
-    console.log('render', fileList);
     return (
       <div>
         <Upload
