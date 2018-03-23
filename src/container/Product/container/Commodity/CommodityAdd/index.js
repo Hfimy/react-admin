@@ -1,24 +1,78 @@
 import React from 'react';
-import { Button, Form, Input, Icon, Row, Col } from 'antd';
-import { EditorState } from 'draft-js';
+import { Button, Form, Input, Icon, message } from 'antd';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import Selector from 'container/Product/component/Selector';
 import UploadImage from 'container/Product/component/UploadImage';
 import RichEditor from 'container/Product/component/RichEditor';
+import { addOrUpdateProduct } from 'api/product';
 import 'public/style/product/commodity-add.less';
 
 const FormItem = Form.Item;
 
 class CommodityAdd extends React.Component {
+  state = {
+    status: 1
+  };
+  componentDidMount() {
+    this._isMounted = true;
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
   goBack = () => {
     this.props.history.goBack();
   };
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, value) => {
-      if (!err) {
-        console.log('received values of fomr', value);
+      //编码规则，错误优先
+      if (err) {
+        return;
       }
+      const status = this.state.status;
+      const { name, subtitle = '', price, stock } = value;
+      let { categoryId, subImages, detail } = value;
+      categoryId = categoryId.current;
+      subImages = this.handleSubImages(subImages);
+      detail = this.handleDetail(detail);
+      const simpleData = {
+        name,
+        subtitle,
+        categoryId,
+        subImages,
+        price,
+        stock,
+        status
+      };
+      const complexData = detail;
+      addOrUpdateProduct(simpleData, complexData, res => {
+        if (res.status === 0) {
+          message.success(res.data);
+          const url = this.props.match.url.replace('/add', '');
+          this.props.history.push(url);
+        } else if (res.status === 10) {
+          message.error(res.msg);
+        } else {
+          if (typeof res.data === 'stirng') {
+            message.error(res.data);
+          } else {
+            message.error('服务器错误');
+          }
+        }
+      });
     });
+  };
+  handleSubImages = subImages => {
+    const imageList = subImages.fileList.map(item => item.name.trim());
+    return imageList.join(',');
+  };
+  handleDetail = detail => {
+    const { editorState } = detail;
+    if (editorState === undefined) {
+      return '';
+    }
+    return draftToHtml(convertToRaw(editorState.getCurrentContent()));
   };
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -61,7 +115,7 @@ class CommodityAdd extends React.Component {
               label="商品描述"
             >
               {getFieldDecorator('subtitle', {
-                rules: [{ required: true, message: '请输入商品描述' }]
+                // rules: [{ required: true, message: '请输入商品描述' }]
               })(<Input placeholder="请输入商品描述" />)}
             </FormItem>
             <FormItem
@@ -70,7 +124,8 @@ class CommodityAdd extends React.Component {
               label="商品分类"
             >
               {getFieldDecorator('categoryId', {
-                initialValue: { one: 0, two: 0, current: 0 }
+                initialValue: { one: 0, two: 0, current: 0 },
+                rules: [{ required: true }]
                 // rules: [{ validator:this.customCheckCategoryId }]
               })(<Selector />)}
             </FormItem>

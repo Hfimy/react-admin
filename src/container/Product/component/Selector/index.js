@@ -91,7 +91,7 @@ export default class Selector extends React.Component {
     return (
       <div class="selector">
         <select value={one} onChange={this.handleOneChange}>
-          <option value={0}>请选择一级分类</option>
+          <option value={0}>请选择一级分类（默认一级）</option>
           {oneLevelList.map((item, key) => (
             <option key={key} value={item.id}>
               {item.name}

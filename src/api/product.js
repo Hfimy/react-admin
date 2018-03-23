@@ -85,6 +85,9 @@ export function uploadRichImage(file, cb) {
   fetch(url, {
     method: 'post',
     credentials: 'include',
+    headers: {
+      // 'Content-Type': 'multipart/form-data'
+    },
     body: form
   })
     .then(res => {
@@ -95,4 +98,26 @@ export function uploadRichImage(file, cb) {
     })
     .then(res => cb && cb(res))
     .catch(err => cb && cb({ success: false, msg: err }));
+}
+
+export function addOrUpdateProduct(simpleData, complexData, cb) {
+  const url = '/manage/product/save.do';
+  // const data = queryString.stringify(simpleData) + `&detail=${complexData}`;
+  const allData = { ...simpleData, ...complexData };
+  fetch(url, {
+    method: 'post',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: queryString.stringify(allData)
+  })
+    .then(res => {
+      if (res.status === 200) {
+        return res.json();
+      }
+      throw new Error('服务器错误');
+    })
+    .then(res => cb && cb(res))
+    .catch(err => cb && cb({ status: 1, data: err }));
 }

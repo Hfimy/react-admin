@@ -74,7 +74,6 @@ export default class Commodity extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    document.title = '商品管理 - React-Antd';
     this.handleGetProductList();
   }
   componentWillUnmount() {

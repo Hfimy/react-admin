@@ -10,6 +10,9 @@ import CommodityAdd from './CommodityAdd';
 
 import 'public/style/product/commodity.less';
 export default class Commodity extends React.Component {
+  componentDidMount() {
+    document.title = '商品管理 - React-Antd';
+  }
   render() {
     const { match } = this.props;
     return (
