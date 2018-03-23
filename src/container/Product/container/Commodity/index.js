@@ -1,14 +1,15 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 import PageTitle from 'component/PageTitle';
 
 import CommodityList from './CommodityList';
 import CommodityDetail from './CommodityDetail';
-import CommodityEdit from './CommodityEdit';
 import CommodityAdd from './CommodityAdd';
 
 import 'public/style/product/commodity.less';
+
+// @withRouter  通过...props直接获取赋值
 export default class Commodity extends React.Component {
   componentDidMount() {
     document.title = '商品管理 - React-Antd';
@@ -25,8 +26,8 @@ export default class Commodity extends React.Component {
             exact
             component={CommodityDetail}
           />
-          <Route path={`${match.url}/edit`} exact component={CommodityEdit} />
           <Route path={`${match.url}/add`} exact component={CommodityAdd} />
+          <Route path={`${match.url}/add/:id`} exact component={CommodityAdd} />
           <Redirect to="/error/404" />
         </Switch>
       </div>

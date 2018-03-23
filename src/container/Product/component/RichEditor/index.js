@@ -12,15 +12,21 @@ import './style.less';
 
 export default class RichEditor extends React.Component {
   static propTypes = {
-    value: PropTypes.shape({
-      editorState: PropTypes.object
-    }),
+    // value: PropTypes.shape({
+    //   editorState: PropTypes.object
+    // }),
+    value: PropTypes.object,
     onChange: PropTypes.func
   };
   constructor(props) {
     super(props);
-    const { editorState } = this.props.value;
+    const editorState = this.props.value;
     this.state = { editorState };
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({ editorState: nextProps.value });
+    }
   }
   uploadImage = file => {
     return new Promise((resolve, reject) => {
@@ -40,7 +46,7 @@ export default class RichEditor extends React.Component {
   };
   onEditorStateChange = editorState => {
     this.setState({ editorState }, () => {
-      this.triggerChange({ editorState: this.state.editorState });
+      this.triggerChange(this.state.editorState);
     });
   };
   triggerChange = value => {

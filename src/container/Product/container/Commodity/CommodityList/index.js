@@ -167,7 +167,7 @@ export default class Commodity extends React.Component {
             <Link key="detail" to={`${this.props.match.url}/detail`}>
               详情
             </Link>
-            <Link key="edit" to={`${this.props.match.url}/edit`}>
+            <Link key="edit" to={`${this.props.match.url}/add/${id}`}>
               编辑
             </Link>
           </div>

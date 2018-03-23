@@ -110,6 +110,9 @@ export default class SideNav extends React.Component {
             <Menu.Item key="6">
               <NavLink to="/error/404">404</NavLink>
             </Menu.Item>
+            <Menu.Item key="7">
+              <NavLink to="/error/breakdown">breakdown</NavLink>
+            </Menu.Item>
           </SubMenu>
         </Menu>
       </nav>

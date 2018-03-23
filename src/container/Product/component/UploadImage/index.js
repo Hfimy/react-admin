@@ -6,19 +6,22 @@ import './style.less';
 
 export default class UploadImage extends React.Component {
   static propTypes = {
-    value: PropTypes.shape({
-      fileList: PropTypes.array
-    }),
+    value: PropTypes.array,
     onChange: PropTypes.func
   };
   constructor(props) {
     super(props);
-    const { fileList } = this.props.value;
+    const { value } = this.props;
     this.state = {
       previewVisible: false,
       previewImage: '',
-      fileList
+      fileList: value.slice(0, 3)
     };
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({ fileList: nextProps.value.slice(0, 3) });
+    }
   }
   componentDidMount() {
     this._isMounted = true;
@@ -63,6 +66,7 @@ export default class UploadImage extends React.Component {
       if (res.status === 0) {
         file.status = 'done';
         file.url = res.data.url;
+        file.uri = res.data.uri;
       } else {
         file.status = 'error';
         if (typeof res.msg === 'string') {
@@ -82,7 +86,7 @@ export default class UploadImage extends React.Component {
           return true;
         });
         this.setState({ fileList: newFileList }, () => {
-          this.triggerChange({ fileList: this.state.fileList });
+          this.triggerChange(this.state.fileList);
         });
       });
     });
@@ -91,11 +95,12 @@ export default class UploadImage extends React.Component {
     if (file.status === 'removed') {
       //此处应对服务器请求删除该文件
       this.setState({ fileList }, () => {
-        this.triggerChange({ fileList: this.state.fileList });
+        this.triggerChange(this.state.fileList);
       });
     }
   };
   triggerChange = value => {
+    console.log('here', value);
     this.props.onChange(value);
   };
   render() {

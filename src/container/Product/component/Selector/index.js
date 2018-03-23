@@ -7,27 +7,68 @@ import './style.less';
 export default class Selector extends React.Component {
   static propTypes = {
     value: PropTypes.shape({
-      one: PropTypes.number,
-      two: PropTypes.number,
-      current: PropTypes.number
+      firstCategoryId: PropTypes.number,
+      secondCategoryId: PropTypes.number,
+      currentCategoryId: PropTypes.number
     }),
     onChange: PropTypes.func
   };
   constructor(props) {
     super(props);
-    const { one, two, current } = this.props.value;
+    const {
+      firstCategoryId,
+      secondCategoryId,
+      currentCategoryId
+    } = this.props.value;
     this.state = {
-      one,
-      two,
-      current,
-      oneLevelList: [],
-      twoLevelList: []
+      firstCategoryId,
+      secondCategoryId,
+      currentCategoryId,
+      firstCategoryIdLevelList: [],
+      secondCategoryIdLevelList: []
     };
   }
-
+  componentWillReceiveProps(nextProps) {
+    const {
+      firstCategoryId,
+      secondCategoryId,
+      currentCategoryId
+    } = nextProps.value;
+    if (currentCategoryId !== this.props.currentCategoryId) {
+      // this.setState({
+      //   value: {
+      //     firstCategoryId,
+      //     secondCategoryId,
+      //     currentCategoryId
+      //   }
+      // });
+      if (firstCategoryId === 0) {
+        this.setState({
+          value: {
+            firstCategoryId,
+            secondCategoryId: 0,
+            currentCategoryId
+          }
+        });
+      } else {
+        this.setState(
+          {
+            value: {
+              firstCategoryId,
+              secondCategoryId,
+              currentCategoryId
+            }
+          },
+          () => {
+            this.initCategoryList(firstCategoryId, 'secondCategoryIdLevelList');
+          }
+        );
+      }
+    }
+  }
   componentDidMount() {
     this._isMounted = true;
-    this.initCategoryList(0, 'oneLevelList');
+    this.initCategoryList(0, 'firstCategoryIdLevelList');
   }
   componentWillUnmount() {
     this._isMounted = false;
@@ -52,31 +93,35 @@ export default class Selector extends React.Component {
     });
   };
 
-  handleOneChange = e => {
-    const one = Number(e.target.value);
-    if (one === 0) {
-      this.initCategoryList(0, 'oneLevelList');
+  handleFirstCategoryIdChange = e => {
+    const firstCategoryId = Number(e.target.value);
+    if (firstCategoryId === 0) {
+      this.initCategoryList(0, 'firstCategoryIdLevelList');
     } else {
-      this.initCategoryList(one, 'twoLevelList');
+      this.initCategoryList(firstCategoryId, 'secondCategoryIdLevelList');
     }
-    const newState = { one, two: 0, current: one };
+    const newState = {
+      firstCategoryId,
+      secondCategoryId: 0,
+      currentCategoryId: firstCategoryId
+    };
     this.setState(newState);
     this.triggerChange(newState);
   };
-  handleTwoChange = e => {
-    const two = Number(e.target.value);
+  handleSecondCategoryIdChange = e => {
+    const secondCategoryId = Number(e.target.value);
     let newState;
-    if (two === 0) {
+    if (secondCategoryId === 0) {
       newState = {
-        one: this.state.one,
-        two,
-        current: this.state.one
+        firstCategoryId: this.state.firstCategoryId,
+        secondCategoryId,
+        currentCategoryId: this.state.firstCategoryId
       };
     } else {
       newState = {
-        one: this.state.one,
-        two,
-        current: two
+        firstCategoryId: this.state.firstCategoryId,
+        secondCategoryId,
+        currentCategoryId: secondCategoryId
       };
     }
     this.setState(newState);
@@ -87,21 +132,33 @@ export default class Selector extends React.Component {
   };
 
   render() {
-    const { one, two, oneLevelList, twoLevelList, current } = this.state;
+    const {
+      firstCategoryId,
+      secondCategoryId,
+      firstCategoryIdLevelList,
+      secondCategoryIdLevelList,
+      currentCategoryId
+    } = this.state;
     return (
       <div class="selector">
-        <select value={one} onChange={this.handleOneChange}>
+        <select
+          value={firstCategoryId}
+          onChange={this.handleFirstCategoryIdChange}
+        >
           <option value={0}>请选择一级分类（默认一级）</option>
-          {oneLevelList.map((item, key) => (
+          {firstCategoryIdLevelList.map((item, key) => (
             <option key={key} value={item.id}>
               {item.name}
             </option>
           ))}
         </select>
-        {current !== 0 ? (
-          <select value={two} onChange={this.handleTwoChange}>
+        {currentCategoryId !== 0 ? (
+          <select
+            value={secondCategoryId}
+            onChange={this.handleSecondCategoryIdChange}
+          >
             <option value={0}>请选择二级分类</option>
-            {twoLevelList.map((item, key) => (
+            {secondCategoryIdLevelList.map((item, key) => (
               <option key={key} value={item.id}>
                 {item.name}
               </option>

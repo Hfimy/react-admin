@@ -100,17 +100,20 @@ export function uploadRichImage(file, cb) {
     .catch(err => cb && cb({ success: false, msg: err }));
 }
 
-export function addOrUpdateProduct(simpleData, complexData, cb) {
+export function addOrUpdateProduct(id, data, cb) {
   const url = '/manage/product/save.do';
   // const data = queryString.stringify(simpleData) + `&detail=${complexData}`;
-  const allData = { ...simpleData, ...complexData };
+  // let allData = { ...simpleData, detail: complexData };
+  if (id !== undefined) {
+    data = { ...data, id };
+  }
   fetch(url, {
     method: 'post',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: queryString.stringify(allData)
+    body: queryString.stringify(data)
   })
     .then(res => {
       if (res.status === 200) {
@@ -120,4 +123,20 @@ export function addOrUpdateProduct(simpleData, complexData, cb) {
     })
     .then(res => cb && cb(res))
     .catch(err => cb && cb({ status: 1, data: err }));
+}
+
+export function getProductDetail(productId, cb) {
+  const url = `/manage/product/detail.do?productId=${productId}`;
+  fetch(url, {
+    method: 'get',
+    credentials: 'include'
+  })
+    .then(res => {
+      if (res.status === 200) {
+        return res.json();
+      }
+      throw new Error('服务器错误');
+    })
+    .then(res => cb && cb(res))
+    .catch(err => cb && cb({ status: 1, msg: err }));
 }
