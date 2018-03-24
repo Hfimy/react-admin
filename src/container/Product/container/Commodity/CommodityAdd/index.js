@@ -26,9 +26,7 @@ class CommodityAdd extends React.Component {
       imageHost: '',
       detail: '',
       categoryId: 0,
-      firstCategoryId: 0,
-      secodeCategoryId: 0,
-      currentCategoryId: 0
+      parentCategoryId: 0
     };
   }
   componentWillMount() {
@@ -47,7 +45,9 @@ class CommodityAdd extends React.Component {
           stock,
           subImages,
           imageHost,
-          detail
+          detail,
+          categoryId,
+          parentCategoryId
         } = res.data;
         this.setState({
           status,
@@ -57,7 +57,9 @@ class CommodityAdd extends React.Component {
           stock,
           subImages,
           imageHost,
-          detail
+          detail,
+          categoryId,
+          parentCategoryId
         });
       } else {
         if (typeof res.msg === 'string') {
@@ -81,18 +83,27 @@ class CommodityAdd extends React.Component {
       if (err) return;
       const status = this.state.status;
       const { name, subtitle = '', price, stock } = value;
-      let { categoryId, subImages, detail } = value;
-      // categoryId = 0;
+      let { subImages, detail } = value;
       detail = this.handleDraftToHtml(detail);
       subImages = this.handleSubImagesToString(subImages);
+      const { categoryId, parentCategoryId } = value.categoryId;
       this.setState(
-        { name, subtitle, price, stock, subImages, detail },
+        {
+          name,
+          subtitle,
+          price,
+          stock,
+          subImages,
+          detail,
+          categoryId,
+          parentCategoryId
+        },
         this.handleAddOrUpdate
       );
     });
   };
   handleAddOrUpdate = () => {
-    const { id, ...data } = this.state;
+    const { id, imageHost, parentCategoryId, ...data } = this.state;
     addOrUpdateProduct(id, data, res => {
       if (!this._isMounted) {
         return;
@@ -183,9 +194,8 @@ class CommodityAdd extends React.Component {
       stock,
       subImages,
       detail,
-      firstCategoryId,
-      secondCategoryId,
-      currentCategoryId
+      categoryId,
+      parentCategoryId
     } = this.state;
     return (
       <div class="productadd-page">
@@ -224,9 +234,8 @@ class CommodityAdd extends React.Component {
             >
               {getFieldDecorator('categoryId', {
                 initialValue: {
-                  firstCategoryId,
-                  secondCategoryId,
-                  currentCategoryId
+                  categoryId,
+                  parentCategoryId
                 },
                 rules: [{ required: true }]
                 // rules: [{ validator:this.customCheckCategoryId }]

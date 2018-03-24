@@ -14,7 +14,12 @@ export default class SideNav extends React.Component {
   };
   componentWillMount() {
     const { routeData, subMenuData } = data;
-    const selectedKey = routeData.get(this.props.location.pathname);
+    let pathname = this.props.location.pathname;
+    //此处对commodity页面内部的子页面进行处理，统一在侧边栏的导航显示
+    if (/^\/product\/commodity\S*$/.test(pathname)) {
+      pathname = '/product/commodity';
+    }
+    const selectedKey = routeData.get(pathname);
     //如在componentDidMount中设置defaultOpenKeys无效
     const openKey = subMenuData.has(selectedKey)
       ? subMenuData.get(selectedKey)
@@ -25,7 +30,11 @@ export default class SideNav extends React.Component {
   componentWillReceiveProps(nextProps) {
     //defaultOpenKeys仅在组件第一次挂载时才有效，后续更新该值无效
     const { routeData } = data;
-    const selectedKey = routeData.get(nextProps.location.pathname);
+    let pathname = nextProps.location.pathname;
+    if (/^\/product\/commodity\S*$/.test(pathname)) {
+      pathname = '/product/commodity';
+    }
+    const selectedKey = routeData.get(pathname);
     this.setState({
       selectedKeys: [selectedKey]
     });

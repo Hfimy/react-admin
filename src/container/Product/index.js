@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Category from './container/Category';
 import Commodity from './container/Commodity';
 
+//此处该组件挂在路由上，具有路由传入的props,需要传入子组件
 const CommodityWithErrorBoundary = props => (
   <ErrorBoundary redirectTo="/error/breakdown">
     <Commodity {...props} />

@@ -26,8 +26,12 @@ export default class Commodity extends React.Component {
             exact
             component={CommodityDetail}
           />
-          <Route path={`${match.url}/add`} exact component={CommodityAdd} />
-          <Route path={`${match.url}/add/:id`} exact component={CommodityAdd} />
+          {/* <Route path={`${match.url}/add`} exact component={CommodityAdd} /> */}
+          <Route
+            path={`${match.url}/add/:id?`}
+            exact
+            component={CommodityAdd}
+          />
           <Redirect to="/error/404" />
         </Switch>
       </div>

@@ -7,69 +7,44 @@ import './style.less';
 export default class Selector extends React.Component {
   static propTypes = {
     value: PropTypes.shape({
-      firstCategoryId: PropTypes.number,
-      secondCategoryId: PropTypes.number,
-      currentCategoryId: PropTypes.number
+      categoryId: PropTypes.number.isRequired,
+      parentCategoryId: PropTypes.number.isRequired
     }),
     onChange: PropTypes.func
   };
   constructor(props) {
     super(props);
-    const {
-      firstCategoryId,
-      secondCategoryId,
-      currentCategoryId
-    } = this.props.value;
+    const { categoryId, parentCategoryId } = this.props.value;
     this.state = {
-      firstCategoryId,
-      secondCategoryId,
-      currentCategoryId,
+      categoryId,
+      parentCategoryId,
       firstCategoryIdLevelList: [],
       secondCategoryIdLevelList: []
     };
   }
-  componentWillReceiveProps(nextProps) {
-    const {
-      firstCategoryId,
-      secondCategoryId,
-      currentCategoryId
-    } = nextProps.value;
-    if (currentCategoryId !== this.props.currentCategoryId) {
-      // this.setState({
-      //   value: {
-      //     firstCategoryId,
-      //     secondCategoryId,
-      //     currentCategoryId
-      //   }
-      // });
-      if (firstCategoryId === 0) {
-        this.setState({
-          value: {
-            firstCategoryId,
-            secondCategoryId: 0,
-            currentCategoryId
-          }
-        });
-      } else {
-        this.setState(
-          {
-            value: {
-              firstCategoryId,
-              secondCategoryId,
-              currentCategoryId
-            }
-          },
-          () => {
-            this.initCategoryList(firstCategoryId, 'secondCategoryIdLevelList');
-          }
-        );
-      }
-    }
-  }
-  componentDidMount() {
+  componentWillMount() {
     this._isMounted = true;
     this.initCategoryList(0, 'firstCategoryIdLevelList');
   }
+  componentWillReceiveProps(nextProps) {
+    const { categoryId, parentCategoryId } = nextProps.value;
+    if (categoryId !== this.props.value.categoryId) {
+      this.setState({ categoryId, parentCategoryId }, () => {
+        //一级分类
+        if (parentCategoryId === 0) {
+          //如果是默认分类，则什么都不做
+          if (categoryId === 0) {
+            return;
+          }
+          this.initCategoryList(categoryId, 'secondCategoryIdLevelList');
+        } else {
+          //二级分类
+          this.initCategoryList(parentCategoryId, 'secondCategoryIdLevelList');
+        }
+      });
+    }
+  }
+
   componentWillUnmount() {
     this._isMounted = false;
   }
@@ -100,32 +75,35 @@ export default class Selector extends React.Component {
     } else {
       this.initCategoryList(firstCategoryId, 'secondCategoryIdLevelList');
     }
-    const newState = {
-      firstCategoryId,
-      secondCategoryId: 0,
-      currentCategoryId: firstCategoryId
-    };
-    this.setState(newState);
-    this.triggerChange(newState);
+    this.setState({
+      categoryId: firstCategoryId,
+      parentCategoryId: 0
+    });
+    this.triggerChange({
+      categoryId: firstCategoryId,
+      parentCategoryId: 0
+    });
   };
   handleSecondCategoryIdChange = e => {
     const secondCategoryId = Number(e.target.value);
-    let newState;
+    let { categoryId, parentCategoryId } = this.state;
     if (secondCategoryId === 0) {
-      newState = {
-        firstCategoryId: this.state.firstCategoryId,
-        secondCategoryId,
-        currentCategoryId: this.state.firstCategoryId
-      };
+      categoryId = parentCategoryId;
+      parentCategoryId = 0;
     } else {
-      newState = {
-        firstCategoryId: this.state.firstCategoryId,
-        secondCategoryId,
-        currentCategoryId: secondCategoryId
-      };
+      if (parentCategoryId === 0) {
+        parentCategoryId = categoryId;
+      }
+      categoryId = secondCategoryId;
     }
-    this.setState(newState);
-    this.triggerChange(newState);
+    this.setState({
+      categoryId,
+      parentCategoryId
+    });
+    this.triggerChange({
+      categoryId,
+      parentCategoryId
+    });
   };
   triggerChange = value => {
     this.props.onChange(value);
@@ -133,16 +111,19 @@ export default class Selector extends React.Component {
 
   render() {
     const {
-      firstCategoryId,
-      secondCategoryId,
       firstCategoryIdLevelList,
       secondCategoryIdLevelList,
-      currentCategoryId
+      categoryId,
+      parentCategoryId
     } = this.state;
+    let isFirst = true;
+    if (parentCategoryId !== 0) {
+      isFirst = false;
+    }
     return (
       <div class="selector">
         <select
-          value={firstCategoryId}
+          value={isFirst ? categoryId : parentCategoryId}
           onChange={this.handleFirstCategoryIdChange}
         >
           <option value={0}>请选择一级分类（默认一级）</option>
@@ -152,9 +133,9 @@ export default class Selector extends React.Component {
             </option>
           ))}
         </select>
-        {currentCategoryId !== 0 ? (
+        {categoryId !== 0 ? (
           <select
-            value={secondCategoryId}
+            value={isFirst ? 0 : categoryId}
             onChange={this.handleSecondCategoryIdChange}
           >
             <option value={0}>请选择二级分类</option>
