@@ -164,7 +164,7 @@ export default class Commodity extends React.Component {
         ),
         operation: (
           <div class="product-operation">
-            <Link key="detail" to={`${this.props.match.url}/detail`}>
+            <Link key="detail" to={`${this.props.match.url}/detail/${id}`}>
               详情
             </Link>
             <Link key="edit" to={`${this.props.match.url}/add/${id}`}>

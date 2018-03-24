@@ -66,7 +66,7 @@ export default class UploadImage extends React.Component {
       if (res.status === 0) {
         file.status = 'done';
         file.url = res.data.url;
-        file.uri = res.data.uri;
+        file._name = res.data.uri;
       } else {
         file.status = 'error';
         if (typeof res.msg === 'string') {
@@ -92,6 +92,9 @@ export default class UploadImage extends React.Component {
     });
   };
   onChange = ({ file, fileList }) => {
+    if (this.props.disabled) {
+      return;
+    }
     if (file.status === 'removed') {
       //此处应对服务器请求删除该文件
       this.setState({ fileList }, () => {
@@ -100,7 +103,6 @@ export default class UploadImage extends React.Component {
     }
   };
   triggerChange = value => {
-    console.log('here', value);
     this.props.onChange(value);
   };
   render() {
@@ -114,6 +116,7 @@ export default class UploadImage extends React.Component {
     return (
       <div>
         <Upload
+          disabled={this.props.disabled}
           action="/manage/product/upload.do"
           listType="picture-card"
           fileList={fileList}

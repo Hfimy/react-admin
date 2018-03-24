@@ -32,6 +32,7 @@ class CommodityAdd extends React.Component {
   componentWillMount() {
     this._isMounted = true;
     const { id } = this.state;
+    //判断是添加商品页还是更新商品信息页
     if (id === undefined) {
       return;
     }
@@ -133,13 +134,13 @@ class CommodityAdd extends React.Component {
         status: 'done',
         url: imageHost + item,
         uid: index,
-        uri: item
+        _name: item
       }));
     }
     return imageList;
   };
   handleSubImagesToString = subImages => {
-    const imageList = subImages.map(item => item.uri.trim());
+    const imageList = subImages.map(item => item._name.trim());
     return imageList.join(',');
   };
   handleDraftToHtml = detail => {
@@ -200,7 +201,7 @@ class CommodityAdd extends React.Component {
     return (
       <div class="productadd-page">
         <div class="title">
-          <h3>{id === undefined ? '商品添加页' : '商品编辑页'}</h3>
+          <h3>{id === undefined ? '添加商品' : '更新商品信息'}</h3>
           <Button type="primary" ghost onClick={this.goBack}>
             返回上一页
           </Button>

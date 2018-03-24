@@ -69,6 +69,9 @@ export default class Selector extends React.Component {
   };
 
   handleFirstCategoryIdChange = e => {
+    if (this.props.disabled) {
+      return;
+    }
     const firstCategoryId = Number(e.target.value);
     if (firstCategoryId === 0) {
       this.initCategoryList(0, 'firstCategoryIdLevelList');
@@ -85,6 +88,9 @@ export default class Selector extends React.Component {
     });
   };
   handleSecondCategoryIdChange = e => {
+    if (this.props.disabled) {
+      return;
+    }
     const secondCategoryId = Number(e.target.value);
     let { categoryId, parentCategoryId } = this.state;
     if (secondCategoryId === 0) {
@@ -125,6 +131,7 @@ export default class Selector extends React.Component {
         <select
           value={isFirst ? categoryId : parentCategoryId}
           onChange={this.handleFirstCategoryIdChange}
+          // disabled={this.props.disabled}
         >
           <option value={0}>请选择一级分类（默认一级）</option>
           {firstCategoryIdLevelList.map((item, key) => (
@@ -137,6 +144,7 @@ export default class Selector extends React.Component {
           <select
             value={isFirst ? 0 : categoryId}
             onChange={this.handleSecondCategoryIdChange}
+            // disabled={this.props.disabled}
           >
             <option value={0}>请选择二级分类</option>
             {secondCategoryIdLevelList.map((item, key) => (

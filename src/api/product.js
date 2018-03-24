@@ -105,6 +105,7 @@ export function addOrUpdateProduct(id, data, cb) {
   // const data = queryString.stringify(simpleData) + `&detail=${complexData}`;
   // let allData = { ...simpleData, detail: complexData };
   if (id !== undefined) {
+    //如果传入id则拼接至数据中
     data = { ...data, id };
   }
   fetch(url, {

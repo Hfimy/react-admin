@@ -22,7 +22,7 @@ export default class Commodity extends React.Component {
         <Switch>
           <Route path={`${match.url}/`} exact component={CommodityList} />
           <Route
-            path={`${match.url}/detail`}
+            path={`${match.url}/detail/:id`}
             exact
             component={CommodityDetail}
           />

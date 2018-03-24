@@ -57,6 +57,7 @@ export default class RichEditor extends React.Component {
     return (
       <div class="editor-container">
         <Editor
+          readOnly={this.props.readOnly}
           editorState={editorState}
           wrapperClassName="editor-wrapper"
           editorClassName="editor"
