@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import PropTypes from 'prop-types';
 
 import './style.less';
@@ -17,12 +17,16 @@ export default class Search extends React.Component {
     const name = e.target.name;
     const value = e.target.value;
     this.setState({
-      [name]: value
+      [name]: value.trim()
     });
   };
   onSearch = () => {
     const { searchType, searchKeyword } = this.state;
-    this.props.onSearch(searchType, searchKeyword.trim());
+    // if (searchKeyword === '') {
+    //   message.warning('关键字不能为空');
+    //   return;
+    // }
+    this.props.onSearch(searchType, searchKeyword);
   };
   onKeyUp = e => {
     if (e.keyCode === 13) {

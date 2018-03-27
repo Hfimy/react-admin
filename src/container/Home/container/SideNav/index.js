@@ -19,6 +19,9 @@ export default class SideNav extends React.Component {
     if (/^\/product\/commodity\S*$/.test(pathname)) {
       pathname = '/product/commodity';
     }
+    if (/^\/product\/category\S*$/.test(pathname)) {
+      pathname = '/product/category';
+    }
     const selectedKey = routeData.get(pathname);
     //如在componentDidMount中设置defaultOpenKeys无效
     const openKey = subMenuData.has(selectedKey)
@@ -33,6 +36,9 @@ export default class SideNav extends React.Component {
     let pathname = nextProps.location.pathname;
     if (/^\/product\/commodity\S*$/.test(pathname)) {
       pathname = '/product/commodity';
+    }
+    if (/^\/product\/category\S*$/.test(pathname)) {
+      pathname = '/product/category';
     }
     const selectedKey = routeData.get(pathname);
     this.setState({

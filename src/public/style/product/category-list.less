@@ -1,0 +1,42 @@
+.categorylist-page {
+  p {
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    font-size: 18px;
+    height: 32px;
+    line-height: 32px;
+    span {
+      display: inline-block;
+      text-indent: 8px;
+    }
+    button {
+      float: right;
+    }
+  }
+  .table-container {
+    clear: both;
+    table {
+      margin: 0 auto;
+      thead {
+        th {
+          &:nth-child(2) {
+            margin-left: -5px;
+          }
+          &:nth-child(3) {
+            margin-left: -8px;
+          }
+        }
+      }
+      tbody {
+        display: block;
+        width: 1200px;
+        height: 600px;
+        overflow-y: scroll;
+        .operation a {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

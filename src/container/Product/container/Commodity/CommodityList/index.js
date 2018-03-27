@@ -57,6 +57,7 @@ export default class Commodity extends React.Component {
         return;
       }
       if (res.status === 0) {
+        message.success('获取数据成功');
         this.setState({
           data: res.data.list,
           total: res.data.total
@@ -65,7 +66,7 @@ export default class Commodity extends React.Component {
         if (typeof res.msg === 'string') {
           message.error(res.msg);
         } else {
-          message.error('未知获取数据错误');
+          message.error('获取数据失败');
         }
         this.setState({ data: [] });
       }
@@ -127,7 +128,7 @@ export default class Commodity extends React.Component {
   render() {
     const { columns, current, total, data } = this.state;
     const dataSource = data.map((item, index) => {
-      const { id, name, price, status, subtitle, operation } = item;
+      const { id, name, price, status, subtitle } = item;
       return {
         key: index,
         id,

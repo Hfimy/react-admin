@@ -15,7 +15,7 @@ export default class Product extends React.Component {
     const { match } = this.props;
     return (
       <Switch>
-        <Route path={`${match.url}/category`} exact component={Category} />
+        <Route path={`${match.url}/category`} component={Category} />
         <Route
           path={`${match.url}/commodity`}
           component={CommodityWithErrorBoundary}
