@@ -14,6 +14,8 @@ export default class Commodity extends React.Component {
     current: 1, // pageSize:10,//默认为10
     total: 0,
     data: [],
+    searchType: '',
+    searchKeyWord: '',
     columns: [
       {
         title: 'ID',
@@ -91,13 +93,18 @@ export default class Commodity extends React.Component {
     updateProductStatus(data, res => {
       if (res.status === 0) {
         message.success(res.data);
-        this.handleGetProductList();
+        const { searchKeyWord, searchType } = this.state;
+        if (searchKeyWord === '') {
+          this.handleGetProductList();
+        } else {
+          this.handleGetProductList(true, searchType, searchKeyWord);
+        }
       } else {
         message.error(res.data);
       }
     });
   };
-  onClick = (id, currentStatus) => {
+  handleStatus = (id, currentStatus) => {
     const newStatus = currentStatus === 1 ? 2 : 1;
     const confirmTip =
       newStatus === 1 ? '确认上架该商品吗？' : '确认下架该商品吗？';
@@ -117,7 +124,7 @@ export default class Commodity extends React.Component {
     });
   };
   onSearch = (searchType, searchKeyWord) => {
-    this.setState({ current: 1 }, () => {
+    this.setState({ current: 1, searchType, searchKeyWord }, () => {
       if (searchKeyWord === '') {
         this.handleGetProductList();
       } else {
@@ -156,7 +163,7 @@ export default class Commodity extends React.Component {
               type="danger"
               size="small"
               onClick={() => {
-                this.onClick(id, status);
+                this.handleStatus(id, status);
               }}
             >
               {status === 1 ? '下架' : '上架'}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Immutable from 'immutable';
-import { message, Modal, Button } from 'antd';
+import { message, Modal, Button, Icon } from 'antd';
 import Table from 'component/Table';
 import { getCategoryId, modifyCategoryName } from 'api/product';
 import 'public/style/product/category-list.less';
@@ -70,9 +70,6 @@ export default class CategoryList extends React.Component {
       this.handleGetCategoryList(curId);
     }
   }
-  goBack = () => {
-    this.props.history.push('/product/category');
-  };
   render() {
     const { parentId, categoryList, columns } = this.state;
     const dataSource = categoryList.map((item, index) => {
@@ -88,7 +85,7 @@ export default class CategoryList extends React.Component {
             </a>
             {parentId === 0 ? (
               <Link key="see" to={`/product/category/${id}`}>
-                查看其子品类
+                查看子品类
               </Link>
             ) : null}
           </div>
@@ -100,10 +97,18 @@ export default class CategoryList extends React.Component {
         <p>
           <span>父级品类Id ：{parentId}</span>
           {parentId !== 0 ? (
-            <Button type="primary" ghost onClick={this.goBack}>
-              返回上一级
-            </Button>
-          ) : null}
+            <Link to="/product/category">
+              <Button type="primary" ghost>
+                返回上一级
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/product/category/add">
+              <Button type="primary">
+                <Icon type="plus" />新增品类
+              </Button>
+            </Link>
+          )}
         </p>
         <div class="table-container">
           <Table columns={columns} dataSource={Immutable.fromJS(dataSource)} />
