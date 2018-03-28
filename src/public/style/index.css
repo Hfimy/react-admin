@@ -13,3 +13,12 @@
 body {
   /* min-width: 1160px; */
 }
+
+.ant-pagination {
+  text-align: center;
+}
+.ant-pagination-prev,
+.ant-pagination-item,
+.ant-pagination-next {
+  width: 48px;
+}

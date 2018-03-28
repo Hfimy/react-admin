@@ -4,7 +4,7 @@ import { message, Pagination } from 'antd';
 import PageTitle from 'component/PageTitle';
 import Table from 'component/Table';
 import { getUserList } from 'api';
-
+import 'public/style/user/user-list.less';
 const customWidth = ['12%', '16%', '18%', '26%', '28%'];
 export default class UserList extends React.Component {
   state = {

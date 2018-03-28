@@ -3,7 +3,7 @@ const routeData = new Map([
   ['/product/commodity', '2'],
   ['/product/category', '3'],
   ['/user/list', '4'],
-  ['/order/list', '5'],
+  ['/order/manage', '5'],
   ['/error/404', '6'],
   ['/error/breakdown', '7']
 ]);

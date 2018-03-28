@@ -6,11 +6,13 @@ import './style.less';
 
 export default class Search extends React.Component {
   static propTypes = {
+    defaultSearchType: PropTypes.string.isRequired,
+    optionList: PropTypes.array.isRequired,
     onSearch: PropTypes.func.isRequired
     // width: PropTypes.string
   };
   state = {
-    searchType: 'productId',
+    searchType: this.props.defaultSearchType,
     searchKeyword: ''
   };
   onChange = e => {
@@ -35,15 +37,19 @@ export default class Search extends React.Component {
   };
   render() {
     const { searchType, searchKeyword } = this.state;
+    const { defaultSearchType, optionList } = this.props;
     return (
       <div class="search">
         <select
           name="searchType"
-          defaultValue="productId"
+          defaultValue={defaultSearchType}
           onChange={this.onChange}
         >
-          <option value="productId">商品ID</option>
-          <option value="productName">商品名称</option>
+          {optionList.map((item, index) => (
+            <option key={index} value={item.key}>
+              {item.value}
+            </option>
+          ))}
         </select>
         <input
           name="searchKeyword"

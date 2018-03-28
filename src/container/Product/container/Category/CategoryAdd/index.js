@@ -73,7 +73,7 @@ export default class CategoryAdd extends React.Component {
             <option value={0}>根品类/</option>
             {categoryList.map((item, index) => (
               <option key={index} value={item.id}>
-                {item.name}
+                根品类/{item.name}
               </option>
             ))}
           </select>

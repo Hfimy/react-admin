@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Immutable from 'immutable';
 import { message, Pagination, Button, Modal, Icon, Row, Col } from 'antd';
 import Table from 'component/Table';
-import Search from 'container/Product/component/Search';
+import Search from 'component/Search';
 import { getProductList, updateProductStatus } from 'api';
 
 import 'public/style/product/commodity-list.less';
@@ -14,8 +14,6 @@ export default class Commodity extends React.Component {
     current: 1, // pageSize:10,//默认为10
     total: 0,
     data: [],
-    searchType: '',
-    searchKeyWord: '',
     columns: [
       {
         title: 'ID',
@@ -42,6 +40,12 @@ export default class Commodity extends React.Component {
         dataIndex: 'operation',
         width: customWidth[4]
       }
+    ],
+    searchType: '',
+    searchKeyWord: '',
+    optionList: [
+      { key: 'productId', value: '商品ID' },
+      { key: 'productName', value: '商品名称' }
     ]
   };
 
@@ -83,7 +87,14 @@ export default class Commodity extends React.Component {
     this._isMounted = false;
   }
   onChange = pageNum => {
-    this.setState({ current: pageNum }, this.handleGetProductList);
+    this.setState({ current: pageNum }, () => {
+      const { searchKeyWord, searchType } = this.state;
+      if (searchKeyWord === '') {
+        this.handleGetProductList();
+      } else {
+        this.handleGetProductList(true, searchType, searchKeyWord);
+      }
+    });
   };
   handleAction = (id, status) => {
     const data = {
@@ -133,7 +144,7 @@ export default class Commodity extends React.Component {
     });
   };
   render() {
-    const { columns, current, total, data } = this.state;
+    const { columns, current, total, data, optionList } = this.state;
     const dataSource = data.map((item, index) => {
       const { id, name, price, status, subtitle } = item;
       return {
@@ -186,7 +197,11 @@ export default class Commodity extends React.Component {
     return (
       <div class="productlist-page">
         <div class="header">
-          <Search onSearch={this.onSearch} />
+          <Search
+            defaultSearchType="productId"
+            optionList={optionList}
+            onSearch={this.onSearch}
+          />
           <div class="product-add">
             <Link to={`${this.props.match.url}/add`}>
               <Button type="primary">
@@ -195,7 +210,6 @@ export default class Commodity extends React.Component {
             </Link>
           </div>
         </div>
-
         <div class="table-container">
           <Table columns={columns} dataSource={Immutable.fromJS(dataSource)} />
         </div>

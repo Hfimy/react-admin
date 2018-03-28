@@ -1,9 +1,15 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Layout, Button } from 'antd';
+
 import TopHeader from './container/TopHeader';
 import SideNav from './container/SideNav';
-import Main from './container/Main';
+import Detail from './container/Detail';
+
+import Product from 'container/Product';
+import User from 'container/User';
+import Order from 'container/Order';
+import ErrorPage from 'container/ErrorPage';
 import 'public/style/home/index.less';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -40,7 +46,14 @@ export default class Home extends React.Component {
                 <TopHeader />
               </Header>
               <Content>
-                <Main />
+                <Switch>
+                  <Route path="/" exact component={Detail} />
+                  <Route path="/product" component={Product} />
+                  <Route path="/user" component={User} />
+                  <Route path="/order" component={Order} />
+                  <Route path="/error" component={ErrorPage} />
+                  <Redirect to="/error/404" />
+                </Switch>
               </Content>
               <Footer>Copyright &copy; 2018 Hfimy. All rights reserved</Footer>
             </Layout>
