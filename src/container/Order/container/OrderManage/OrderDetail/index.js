@@ -106,7 +106,7 @@ export default class OrderDetail extends React.Component {
           ) : (
             <div class="img-box" />
           ),
-          productName,
+          productName: <span title={productName}>{productName}</span>,
           currentUnitPrice,
           quantity,
           totalPrice
@@ -185,10 +185,13 @@ export default class OrderDetail extends React.Component {
             <label>订单金额：</label>
             <p>{payment} ¥</p>
           </div>
-          <Table
-            columns={columns}
-            dataSource={Immutable.fromJS(dataSource || [])}
-          />
+          <div class="form-group">
+            {/* <label>商品列表：</label> */}
+            <Table
+              columns={columns}
+              dataSource={Immutable.fromJS(dataSource || [])}
+            />
+          </div>
         </div>
       </div>
     );
