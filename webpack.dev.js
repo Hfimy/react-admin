@@ -90,10 +90,10 @@ module.exports = {
       title: 'React-Antd',
       favicon: './src/favicon.ico'
     }),
-    new ExtractTextPlugin('style/index.css'),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      filename: 'js/[name].js'
-    })
+      name: 'common'
+      // filename: 'js/[name].js'
+    }),
+    new ExtractTextPlugin('styles.css')
   ]
 };

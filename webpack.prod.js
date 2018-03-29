@@ -3,14 +3,20 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 
+const vendors = Object.keys(require('./package.json').dependencies);
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    main: './src/index.js',
+    vendor: vendors
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].js',
-    publicPath: '/'
+    filename: 'js/[name].[chunkhash:8].js',
+    publicPath: '/productionpre/'
   },
+  devtool: false,
   resolve: {
     extensions: ['.js', '.json', '.jsx', '.css', '.less'],
     alias: {
@@ -33,7 +39,15 @@ module.exports = {
         test: /\.(css|less)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'less-loader']
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true
+              }
+            },
+            'less-loader'
+          ]
         })
       },
       {
@@ -64,15 +78,32 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       title: 'React-Antd',
-      favicon: './src/favicon.ico'
+      favicon: './src/favicon.ico',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      }
     }),
-    new ExtractTextPlugin('style/index.css'),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      filename: 'js/[name].js'
+      name: 'vendor'
+      // filename: 'js/[name].js'
+    }),
+    new ExtractTextPlugin('styles.[chunkhash:8].css'),
+    new UglifyjsWebpackPlugin({
+      uglifyOptions: {
+        output: {
+          beautify: false,
+          comments: false
+        },
+        warnings: false
+      }
     })
   ]
 };
