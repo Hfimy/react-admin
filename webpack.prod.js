@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].[chunkhash:8].js',
-    publicPath: '/productionpre/'
+    publicPath: '//deploy.com/react-admin/dist/'
   },
   devtool: false,
   resolve: {
