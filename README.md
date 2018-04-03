@@ -8,8 +8,8 @@
 yarn  或者 npm install
 ```
 
-#### 打包
+#### 运行
 
 ```
-npm run build
+npm run dev
 ```
