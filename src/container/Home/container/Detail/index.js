@@ -57,7 +57,7 @@ export default class Detail extends React.Component {
             </Link>
           </Col>
           <Col span={8}>
-            <Link to="/order/list" class="color-box blue">
+            <Link to="/order/manage" class="color-box blue">
               <p class="count">{orderCount}</p>
               <p class="desc">
                 <Icon type="file" />

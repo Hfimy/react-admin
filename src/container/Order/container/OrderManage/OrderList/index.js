@@ -74,7 +74,7 @@ export default class OrderList extends React.Component {
         } else {
           message.error('获取数据失败');
         }
-        this.setState({ data: [] });
+        this.setState({ data: [], total: 0 });
       }
     });
   };
@@ -118,6 +118,7 @@ export default class OrderList extends React.Component {
         operation: <Link to={`${match.url}/detail/${orderNo}`}>详情</Link>
       };
     });
+    console.log('total', total);
     return (
       <div class="orderlist-page">
         <Search

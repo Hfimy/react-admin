@@ -74,7 +74,7 @@ export default class Commodity extends React.Component {
         } else {
           message.error('获取数据失败');
         }
-        this.setState({ data: [] });
+        this.setState({ data: [], total: 0 });
       }
     });
   };
