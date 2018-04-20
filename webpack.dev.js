@@ -53,7 +53,22 @@ module.exports = {
         test: /\.(css|less)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'less-loader']
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                minimize: true
+              }
+            },
+            {
+              loader:'less-loader',
+              options:{
+                modifyVars:{
+                  "@icon-url":'/font/antd'
+                }
+              }
+            }
+          ]
         })
       },
       {
