@@ -60,11 +60,12 @@ module.exports = {
                 minimize: true
               }
             },
+            'postcss-loader',
             {
               loader:'less-loader',
               options:{
                 modifyVars:{
-                  "@icon-url":'/font/antd'
+                  // "@icon-url":'/font/antd'
                 }
               }
             }

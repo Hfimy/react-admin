@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].[chunkhash:8].js',
-    publicPath: '//deploy.com/react-admin/dist/'
+    // publicPath: '//deploy.com/react-admin/dist/'
   },
   devtool: false,
   resolve: {
@@ -46,7 +46,15 @@ module.exports = {
                 minimize: true
               }
             },
-            'less-loader'
+            'postcss-loader',
+            {
+              loader: 'less-loader',
+              options: {
+                modifyVars: {
+                  '@icon-url': `"/font/antd"`  // 配合按需加载为less，且提供静态资源服务器访问
+                }
+              }
+            }
           ]
         })
       },
